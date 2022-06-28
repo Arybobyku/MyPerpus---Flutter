@@ -1,6 +1,6 @@
 class UserModel {
   String? id;
-  String? role;
+  int? role;
   late String password;
   late String email;
   late String jenisIdentitas;

@@ -5,8 +5,10 @@ import 'package:my_perpus/helper/constants.dart';
 class ButtonRounded extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
+  final bool invert;
 
-  const ButtonRounded({Key? key, this.onPressed, required this.text})
+  const ButtonRounded(
+      {Key? key, this.onPressed, required this.text, this.invert = false})
       : super(key: key);
 
   @override
@@ -15,13 +17,18 @@ class ButtonRounded extends StatelessWidget {
       width: double.infinity,
       margin: EdgeInsets.symmetric(vertical: 15.0),
       decoration: kRoundedContainer.copyWith(
-          color: ColorPalette.generalPrimaryColor, borderRadius:BorderRadius.circular(15)),
+          color: invert
+              ? ColorPalette.generalWhite
+              : ColorPalette.generalPrimaryColor,
+          borderRadius: BorderRadius.circular(15)),
       child: TextButton(
         onPressed: onPressed,
         child: Text(
           text,
           style: TextStyle(
-            color: ColorPalette.generalBackgroundColor,
+            color: invert
+                ? ColorPalette.generalPrimaryColor
+                : ColorPalette.generalBackgroundColor,
           ),
         ),
       ),

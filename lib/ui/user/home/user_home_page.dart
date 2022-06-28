@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_perpus/helper/color_palette.dart';
+import 'package:my_perpus/routes.dart';
 import 'package:my_perpus/ui/widget/book_container.dart';
 import 'package:my_perpus/ui/widget/search_bar.dart';
 
@@ -22,9 +24,15 @@ class _UserHomePageState extends State<UserHomePage> {
             Row(
               children: [
                 Expanded(
-                  child: SearchBar(),
+                  child: SearchBar(
+                    onTapSearch: ()=> Get.toNamed(Routes.search),
+                    enable: false,
+                  ),
                 ),
-                Icon(Icons.card_travel,color: ColorPalette.generalPrimaryColor,),
+                Icon(
+                  Icons.card_travel,
+                  color: ColorPalette.generalPrimaryColor,
+                ),
                 SizedBox(width: 15)
               ],
             ),
@@ -42,7 +50,7 @@ class _UserHomePageState extends State<UserHomePage> {
             ),
             SizedBox(height: 10),
             SizedBox(
-              height: 300,
+              height: 250,
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: 10,
@@ -51,11 +59,49 @@ class _UserHomePageState extends State<UserHomePage> {
                 itemBuilder: (context, index) {
                   return Container(
                     margin: EdgeInsets.only(left: 20),
-                    child: BookContainer(),
+                    child: BookContainer(
+                      onTapBook: (){
+                        Get.toNamed(Routes.detailBuku);
+                      },
+                    ),
                   );
                 },
               ),
             ),
+            SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Text(
+                "More",
+                style: TextStyle(
+                  fontSize: 24,
+                  color: ColorPalette.generalPrimaryColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  childAspectRatio: 0.45,
+                  crossAxisSpacing: 20
+                ),
+                itemCount: 10,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return BookContainer(
+                    imageHeight: 180,
+                    onTapBook: (){
+                      Get.toNamed(Routes.detailBuku);
+                    },
+                  );
+                },
+              ),
+            )
           ],
         ),
       ),

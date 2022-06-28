@@ -13,7 +13,7 @@ class UserService {
         'alamat': user.alamat,
         'jenisIdentitas': user.jenisIdentitas,
         'provinsi': user.provinsi,
-        'role': 'anggota',
+        'role': 0,
         'kota': user.kota,
         'tempatLahir': user.tempatLahir,
         'tanggalLahir': user.tanggalLahir,
