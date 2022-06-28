@@ -1,16 +1,19 @@
-class BukuModel{
+class BukuModel {
   String? id;
   String? gambar;
   String judul;
-  String pengarang;
   String penerbit;
-  int stok;
+  String pengarang;
+  String tahun;
+  String jenis;
+
   BukuModel({
     this.id,
     this.gambar,
     required this.judul,
-    required this.penerbit,
     required this.pengarang,
-    required this.stok
-});
+    required this.penerbit,
+    required this.jenis,
+    required this.tahun,
+  });
 }

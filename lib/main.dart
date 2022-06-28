@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:my_perpus/helper/color_palette.dart';
 import 'package:my_perpus/injection.dart';
 import 'package:my_perpus/provider/auth.dart';
+import 'package:my_perpus/provider/buku.dart';
 import 'package:my_perpus/routes.dart';
 import 'package:my_perpus/setup_locator.dart';
 import 'package:provider/provider.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AuthProvider()),
+        ChangeNotifierProvider(create: (context) => BukuProvider()),
       ],
       child: GetMaterialApp(
         builder: EasyLoading.init(),
