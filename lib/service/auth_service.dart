@@ -7,26 +7,16 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
 
-  Future<UserModel> signUp({
-    required String email,
-    required String password,
-    required String name,
-    String hobby = '',
-  }) async {
+  Future<UserModel> signUp(UserModel user) async {
     try {
       //NOTE: Create User to Firebase
       UserCredential userCredential =
       await _auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
+        email: user.email,
+        password: user.password,
       );
 
       //NOTE: Insert to User Model
-      UserModel user = UserModel(
-          id: userCredential.user!.uid,
-          email: email,
-          password: password,
-          name: name,);
       //NOTE: Register To FireStore
       await UserService().setUser(user);
       return user;

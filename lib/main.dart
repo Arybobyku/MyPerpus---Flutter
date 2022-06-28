@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:my_perpus/helper/color_palette.dart';
 import 'package:my_perpus/injection.dart';
@@ -13,6 +14,7 @@ import 'package:provider/provider.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   configureInjection();
+
   await Firebase.initializeApp();
   await SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
@@ -31,13 +33,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider(create: (context) => AuthProvider()),
+        ChangeNotifierProvider(create: (context) => AuthProvider()),
       ],
       child: GetMaterialApp(
+        builder: EasyLoading.init(),
         navigatorKey: Get.key,
         debugShowCheckedModeBanner: false,
         color: ColorPalette.generalBackgroundColor,
-        title: 'Herpes',
+        title: 'MyPerpus',
         initialRoute: Routes.navigator,
         getPages: Routes.newRoutes,
         theme: ThemeData(

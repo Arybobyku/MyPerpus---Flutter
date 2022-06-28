@@ -1,0 +1,30 @@
+import 'package:flutter/material.dart';
+import 'package:my_perpus/helper/color_palette.dart';
+import 'package:my_perpus/helper/constants.dart';
+
+class ButtonRounded extends StatelessWidget {
+  final String text;
+  final VoidCallback? onPressed;
+
+  const ButtonRounded({Key? key, this.onPressed, required this.text})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(vertical: 15.0),
+      decoration: kRoundedContainer.copyWith(
+          color: ColorPalette.generalPrimaryColor, borderRadius:BorderRadius.circular(15)),
+      child: TextButton(
+        onPressed: onPressed,
+        child: Text(
+          text,
+          style: TextStyle(
+            color: ColorPalette.generalBackgroundColor,
+          ),
+        ),
+      ),
+    );
+  }
+}

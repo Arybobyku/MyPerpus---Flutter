@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_perpus/helper/color_palette.dart';
@@ -17,22 +18,24 @@ class _NavigatorPageState extends State<NavigatorPage> {
   @override
   Widget build(BuildContext context) {
     navigated(context);
-    return Container(
-      child: Text(
-        "MyPerpus",
-        style: TextStyle(
-          color: ColorPalette.generalPrimaryColor,
+    return Scaffold(
+      backgroundColor: ColorPalette.generalBackgroundColor,
+      body: Center(
+        child: Text(
+          "MyPerpus",
+          style: TextStyle(
+            color: ColorPalette.generalPrimaryColor,
+            fontSize: 25,
+          ),
         ),
       ),
     );
   }
 
   navigated(BuildContext context) async {
-    var storageService = locator<LocalStorageService>();
-    var name = storageService.getStringFromPref(Constants.userName);
-
+    var user = await FirebaseAuth.instance.currentUser??null;
     await Future.delayed(const Duration(seconds: 5), () async {
-      if (name == null) {
+      if (user==null) {
         Get.offAllNamed(Routes.login);
       } else {
         Get.offAllNamed(Routes.mainMenu);
