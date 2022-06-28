@@ -15,6 +15,7 @@ class AuthService {
         email: user.email,
         password: user.password,
       );
+      user.id = userCredential.user!.uid;
 
       //NOTE: Insert to User Model
       //NOTE: Register To FireStore

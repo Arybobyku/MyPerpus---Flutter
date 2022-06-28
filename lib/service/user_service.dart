@@ -27,6 +27,8 @@ class UserService {
   Future<UserModel> getUserById(String id) async {
     try {
       DocumentSnapshot snapshot = await _userReference.doc(id).get();
+      var tanggalLahir = snapshot['tanggalLahir'];
+      DateTime date =  tanggalLahir.toDate();
       return UserModel(
         id: id,
          email: snapshot['email'],
@@ -38,7 +40,7 @@ class UserService {
          role: snapshot['role'],
          alamat: snapshot['alamat'],
          nomorIdentitas: snapshot['nomorIdentitas'],
-         tanggalLahir: snapshot['tanggalLahir'],
+         tanggalLahir: date,
          tempatLahir: snapshot['tempatLahir'],
       );
     } catch (e) {

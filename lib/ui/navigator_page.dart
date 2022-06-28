@@ -33,11 +33,15 @@ class _NavigatorPageState extends State<NavigatorPage> {
   }
 
   navigated(BuildContext context) async {
+    var storageService = locator<LocalStorageService>();
+    var role = storageService.getIntFromPref(Constants.role);
     var user = await FirebaseAuth.instance.currentUser??null;
-    await Future.delayed(const Duration(seconds: 5), () async {
+    await Future.delayed(const Duration(seconds: 2), () async {
       if (user==null) {
         Get.offAllNamed(Routes.login);
-      } else {
+      } else if(role==1){
+        Get.offAllNamed(Routes.adminHome);
+      }else{
         Get.offAllNamed(Routes.mainMenu);
       }
     });

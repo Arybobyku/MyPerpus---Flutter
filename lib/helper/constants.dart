@@ -3,6 +3,7 @@ import 'package:my_perpus/helper/color_palette.dart';
 
 class Constants{
   static const String userName = 'userName';
+  static const String role = 'role';
 }
 
 

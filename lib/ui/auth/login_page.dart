@@ -145,7 +145,7 @@ class LoginPage extends StatelessWidget {
       (r){
         EasyLoading.dismiss();
         Get.offAllNamed(
-          Routes.mainMenu,
+          Routes.navigator,
         );
       }
     );

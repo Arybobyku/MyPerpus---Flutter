@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:my_perpus/helper/constants.dart';
+import 'package:my_perpus/local_storage_service.dart';
 import 'package:my_perpus/model/user_model.dart';
 import 'package:my_perpus/service/auth_service.dart';
 import 'package:my_perpus/service/user_service.dart';
 
+import '../setup_locator.dart';
+
 class AuthProvider extends ChangeNotifier{
   final AuthService _authService = AuthService();
   late UserModel user;
+  var storageService = locator<LocalStorageService>();
   final UserService _userService = UserService();
 
   Future<Either<String, bool>> doSignIn({
     required String email, required String password
   })async{
     try{
-      await _authService.signIn(email: email, password: password);
+      user = await _authService.signIn(email: email, password: password);
+      storageService.saveToPref(Constants.role, user.role);
       return right(true);
     }catch(e){
       return left(e.toString());
@@ -24,8 +30,10 @@ class AuthProvider extends ChangeNotifier{
     required UserModel user
   })async{
     try{
-      await _authService.signUp(user);
+      user = await _authService.signUp(user);
       this.user = user;
+
+      storageService.saveToPref(Constants.role, user.role);
       notifyListeners();
       return right(true);
     }catch(e){
@@ -36,6 +44,7 @@ class AuthProvider extends ChangeNotifier{
   Future<Either<String,bool>> doSignOut()async{
     try{
      await _authService.signOut();
+     storageService.clearPref();
       return right(true);
     }catch(e){
       return left(e.toString());
