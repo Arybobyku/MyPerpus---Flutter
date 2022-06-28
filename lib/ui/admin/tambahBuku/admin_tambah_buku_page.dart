@@ -134,6 +134,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
         imageCoverFile != null) {
       var buku = BukuModel(
           judul: judul!,
+          isAvailable: true,
           pengarang: pengarang!,
           penerbit: penerbit!,
           jenis: jenis!,

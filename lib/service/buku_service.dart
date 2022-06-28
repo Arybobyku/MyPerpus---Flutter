@@ -24,7 +24,6 @@ class BukuService {
       result.ref.getDownloadURL();
 
       String path = await result.ref.getDownloadURL();
-      print("MyPath"+path);
       buku.gambar = path;
       return buku;
     } catch (e) {
@@ -38,6 +37,7 @@ class BukuService {
           'judul': bukuModel.judul,
           'penerbit': bukuModel.penerbit,
           'pengarang': bukuModel.pengarang,
+          'isAvailable': bukuModel.isAvailable,
           'tahun': bukuModel.tahun,
           'jenis': bukuModel.jenis,
           'gambar': bukuModel.gambar,
@@ -46,4 +46,19 @@ class BukuService {
         rethrow;
       }
   }
+
+  Future<List<BukuModel>> getAllBuku()async{
+    try{
+      print("Get Buku From Firbase");
+      QuerySnapshot result = await _bukuReference.get();
+      List<BukuModel> bukuFromFirebase = result.docs.map((e){
+        return BukuModel.fromjson(e.data() as Map<String, dynamic>, e.id);
+      }).toList();
+
+      return bukuFromFirebase;
+    }catch(e){
+      rethrow;
+    }
+  }
+
 }

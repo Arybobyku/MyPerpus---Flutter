@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:my_perpus/helper/color_palette.dart';
+import 'package:my_perpus/provider/buku.dart';
 import 'package:my_perpus/ui/user/home/user_home_page.dart';
 import 'package:my_perpus/ui/user/profile/user_profile_page.dart';
 import 'package:my_perpus/ui/user/riwayat/user_riwayat_page.dart';
+import 'package:provider/provider.dart';
 
 class MainMenuPage extends StatefulWidget {
   const MainMenuPage({Key? key}) : super(key: key);
+
 
   @override
   _MainMenuPageState createState() => _MainMenuPageState();
@@ -13,6 +16,16 @@ class MainMenuPage extends StatefulWidget {
 
 class _MainMenuPageState extends State<MainMenuPage> {
   int _selectedIndex = 0;
+  bool getData = true;
+  @override
+  void initState() {
+    if(getData){
+      Provider.of<BukuProvider>(context, listen: false).doGetAllBook();
+      getData = false;
+    }
+    super.initState();
+  }
+
   void _onItemTap(int index) {
     setState(() {
       _selectedIndex = index;

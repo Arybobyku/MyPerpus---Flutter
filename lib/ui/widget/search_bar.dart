@@ -4,13 +4,18 @@ import 'package:my_perpus/helper/constants.dart';
 import 'package:my_perpus/ui/widget/input_field_rounded.dart';
 
 class SearchBar extends StatelessWidget {
-  const SearchBar({Key? key, this.onTapSearch,this.enable = true}) : super(key: key);
+  const SearchBar(
+      {Key? key, this.onTapSearch, this.enable = true, this.onChanged,this.onEditingCompleted})
+      : super(key: key);
   final Function()? onTapSearch;
+  final Function()? onEditingCompleted;
+  final Function(String)? onChanged;
   final bool enable;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap:onTapSearch,
+      onTap: onTapSearch,
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 15),
         decoration: kRoundedContainer.copyWith(
@@ -32,21 +37,23 @@ class SearchBar extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(Icons.search,color: ColorPalette.generalPrimaryColor,),
+            Icon(Icons.search, color: ColorPalette.generalPrimaryColor,),
             SizedBox(width: 10,),
             Expanded(
               child: TextField(
                 maxLines: 1,
                 minLines: 1,
                 enabled: enable,
+                onChanged:onChanged,
+                onEditingComplete: onEditingCompleted,
                 decoration: InputDecoration(
-                    filled: false,
-                    isDense: true,
-                    hoverColor: ColorPalette.generalPrimaryColor,
-                    hintText: "Cari Buku",
-                    hintStyle: TextStyle(
-                        color: ColorPalette.generalPrimaryColor
-                    ),
+                  filled: false,
+                  isDense: true,
+                  hoverColor: ColorPalette.generalPrimaryColor,
+                  hintText: "Cari Buku",
+                  hintStyle: TextStyle(
+                      color: ColorPalette.generalPrimaryColor
+                  ),
                   contentPadding: EdgeInsets.symmetric(vertical: 0),
                   counterText: null,
                   border: InputBorder.none,
