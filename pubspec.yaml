@@ -28,6 +28,7 @@ dependencies:
   firebase_core: 1.17.1
   google_fonts:
   get:
+  intl:
   lottie:
   pull_to_refresh: ^2.0.0
   get_it:

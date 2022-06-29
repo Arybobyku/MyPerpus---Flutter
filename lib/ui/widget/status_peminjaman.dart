@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:my_perpus/helper/color_palette.dart';
 import 'package:my_perpus/helper/constants.dart';
+import 'package:my_perpus/model/peminjaman_model.dart';
 
 class StatusPeminjaman extends StatelessWidget {
-  const StatusPeminjaman({Key? key}) : super(key: key);
-
+  const StatusPeminjaman({Key? key,required this.peminjamanModel}) : super(key: key);
+final PeminjamanModel peminjamanModel;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,8 +20,8 @@ class StatusPeminjaman extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  "10 juni 2022",
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                 parseDate(peminjamanModel.tanggalPeminjaman.toString()),
+                  style: TextStyle(fontSize: 16,),
                 ),
               ),
               Container(
@@ -29,15 +30,21 @@ class StatusPeminjaman extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     color: ColorPalette.generalSoftGreen),
                 child: Text(
-                  "Menunggu Konfirmasi",
+                  checkStatus(peminjamanModel.status),
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               )
             ],
           ),
+          SizedBox(height: 10),
           Text(
-            "Ary Boby Siregar",
+           "ID Peminjaman: "+ peminjamanModel.id!,
             style: TextStyle(fontSize: 16),
+          ),
+          SizedBox(height: 5),
+          Text(
+            peminjamanModel.userModel.email,
+            style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
           ),
         ],
       ),

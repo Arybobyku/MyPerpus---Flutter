@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_perpus/model/buku_model.dart';
 
 class HorizontalBook extends StatelessWidget {
-  const HorizontalBook({Key? key,required this.bukuModel}) : super(key: key);
+  const HorizontalBook({Key? key, required this.bukuModel}) : super(key: key);
 
   final BukuModel bukuModel;
 
@@ -17,8 +17,7 @@ class HorizontalBook extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: NetworkImage(
-                  bukuModel.gambar!),
+              image: NetworkImage(bukuModel.gambar!),
             ),
           ),
         ),
@@ -31,17 +30,29 @@ class HorizontalBook extends StatelessWidget {
             children: [
               Text(
                 bukuModel.judul,
-                style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold
-                ),
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 20),
-              Text( bukuModel.pengarang,style: TextStyle(fontSize: 16),),
+              Text(
+                bukuModel.anakJudul,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 16),
+              ),
               SizedBox(height: 4),
-              Text( bukuModel.penerbit,style: TextStyle(fontSize: 16),),
+              Text(
+                bukuModel.pengarang,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 16),
+              ),
               SizedBox(height: 4),
-              Text( bukuModel.jenis,style: TextStyle(fontSize: 16),),
+              Text(
+                bukuModel.penerbit,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 16),
+              ),
               SizedBox(height: 4),
             ],
           ),

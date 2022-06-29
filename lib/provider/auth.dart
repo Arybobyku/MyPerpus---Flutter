@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:my_perpus/helper/constants.dart';
@@ -12,7 +14,6 @@ class AuthProvider extends ChangeNotifier{
   final AuthService _authService = AuthService();
   late UserModel user;
   var storageService = locator<LocalStorageService>();
-  final UserService _userService = UserService();
 
   Future<Either<String, bool>> doSignIn({
     required String email, required String password
@@ -20,6 +21,7 @@ class AuthProvider extends ChangeNotifier{
     try{
       user = await _authService.signIn(email: email, password: password);
       storageService.saveToPref(Constants.role, user.role);
+      storageService.saveToPref(Constants.userModel,jsonEncode(user.toJson()));
       return right(true);
     }catch(e){
       return left(e.toString());
@@ -34,11 +36,17 @@ class AuthProvider extends ChangeNotifier{
       this.user = user;
 
       storageService.saveToPref(Constants.role, user.role);
+      storageService.saveToPref(Constants.userModel,jsonEncode(user.toJson()));
       notifyListeners();
       return right(true);
     }catch(e){
       return left(e.toString());
     }
+  }
+
+  setUserModelFromPref(UserModel user){
+    this.user = user;
+    notifyListeners();
   }
 
   Future<Either<String,bool>> doSignOut()async{

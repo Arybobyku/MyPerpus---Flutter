@@ -3,65 +3,87 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:my_perpus/helper/color_palette.dart';
 import 'package:my_perpus/helper/constants.dart';
+import 'package:my_perpus/provider/admin.dart';
 import 'package:my_perpus/provider/auth.dart';
 import 'package:my_perpus/routes.dart';
 import 'package:my_perpus/ui/widget/status_peminjaman.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-class AdminHomePage extends StatelessWidget {
+class AdminHomePage extends StatefulWidget {
   const AdminHomePage({Key? key}) : super(key: key);
+
+  @override
+  _AdminHomePageState createState() => _AdminHomePageState();
+}
+
+class _AdminHomePageState extends State<AdminHomePage> {
+  bool getData = true;
+
+  @override
+  void initState() {
+    if (getData) {
+      // EasyLoading.show(status: "Loading");
+      Provider.of<AdminProvider>(context, listen: false).getAllPeminjaman();
+      getData = false;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: Text(
-            "Admin",
-            style: TextStyle(color: ColorPalette.generalPrimaryColor),
-          ),
-          actions: [
-            GestureDetector(
-              onTap: () => doSignOut(context),
-              child: Icon(
-                Icons.logout,
-                color: ColorPalette.generalPrimaryColor,
-              ),
+      child: Consumer<AdminProvider>(builder: (context, valueAdmin, _) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            title: Text(
+              "Admin",
+              style: TextStyle(color: ColorPalette.generalPrimaryColor),
             ),
-            SizedBox(width: 15),
-          ],
-        ),
-        backgroundColor: ColorPalette.generalSoftGrey,
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: ColorPalette.generalPrimaryColor,
-          child: Icon(
-            Icons.book,
-            color: Colors.white,
-          ),
-          onPressed: () => Get.toNamed(Routes.adminTambahBuku),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: 20),
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: 10,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding:
-                        const EdgeInsets.only(bottom: 20, left: 20, right: 20),
-                    child: StatusPeminjaman(),
-                  );
-                },
-              )
+            actions: [
+              GestureDetector(
+                onTap: () => doSignOut(context),
+                child: Icon(
+                  Icons.logout,
+                  color: ColorPalette.generalPrimaryColor,
+                ),
+              ),
+              SizedBox(width: 15),
             ],
           ),
-        ),
-      ),
+          backgroundColor: ColorPalette.generalSoftGrey,
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: ColorPalette.generalPrimaryColor,
+            child: Icon(
+              Icons.book,
+              color: Colors.white,
+            ),
+            onPressed: () => Get.toNamed(Routes.adminTambahBuku),
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 20),
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: valueAdmin.listPeminjaman.length,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(
+                          bottom: 20, left: 20, right: 20),
+                      child: StatusPeminjaman(
+                        peminjamanModel: valueAdmin.listPeminjaman[index],
+                      ),
+                    );
+                  },
+                )
+              ],
+            ),
+          ),
+        );
+      }),
     );
   }
 
@@ -74,7 +96,7 @@ class AdminHomePage extends StatelessWidget {
       Alert(
         context: context,
         type: AlertType.error,
-        title: "Error Login",
+        title: "Error",
         desc: l,
         buttons: [
           DialogButton(

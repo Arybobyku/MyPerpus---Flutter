@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class UserModel {
   String? id;
   int? role;
@@ -26,4 +28,53 @@ class UserModel {
     required this.email,
     required this.jenisIdentitas,
   });
+
+  factory UserModel.fromjson(Map<String, dynamic> json, String id) {
+    return UserModel(
+      id: id,
+      role: json['role'],
+      kota: json['kota'],
+      provinsi: json['provinsi'],
+      alamat: json['alamat'],
+      tempatLahir: json['tempatLahir'],
+      namaLengkap: json['namaLengkap'],
+      tanggalLahir: DateTime.parse(json['tanggalLahir']),
+      nomorIdentitas: json['nomorIdentitas'],
+      password: '',
+      email: json['email'],
+      jenisIdentitas: json['jenisIdentitas'],
+    );
+  }
+
+  factory UserModel.fromjsonWithId(Map<String, dynamic> json) {
+    return UserModel(
+      id: json['id'],
+      role: json['role'],
+      kota: json['kota'],
+      provinsi: json['provinsi'],
+      alamat: json['alamat'],
+      tempatLahir: json['tempatLahir'],
+      namaLengkap: json['namaLengkap'],
+      tanggalLahir: DateTime.parse(json['tanggalLahir']),
+      nomorIdentitas: json['nomorIdentitas'],
+      password: '',
+      email: json['email'],
+      jenisIdentitas: json['jenisIdentitas'],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'role': role,
+    'kota': kota,
+    'provinsi': provinsi,
+    'alamat': alamat,
+    'tempatLahir': tempatLahir,
+    'namaLengkap': namaLengkap,
+    'tanggalLahir': tanggalLahir.toIso8601String(),
+    'nomorIdentitas': nomorIdentitas,
+    'email': email,
+    'jenisIdentitas': jenisIdentitas,
+  };
+
 }

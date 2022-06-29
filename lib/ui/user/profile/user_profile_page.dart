@@ -14,21 +14,32 @@ class UserProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            children: [
-              ButtonRounded(
-                text: "Keluar",
-                invert: true,
-                onPressed: (){
-                  doSignOut(context);
-                },
-              )
-            ],
-          ),
-        ),
+      child: Consumer<AuthProvider>(
+        builder: (context,valueAuth,_) {
+          return Scaffold(
+            body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                children: [
+                  Container(
+                    child: Column(
+                      children: [
+                        Icon(Icons.person),
+                      ],
+                    ),
+                  ),
+                  ButtonRounded(
+                    text: "Keluar",
+                    invert: true,
+                    onPressed: (){
+                      doSignOut(context);
+                    },
+                  )
+                ],
+              ),
+            ),
+          );
+        }
       ),
     );
   }

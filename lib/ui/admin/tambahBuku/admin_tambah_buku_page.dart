@@ -23,10 +23,25 @@ class AdminTambahBukuPage extends StatefulWidget {
 class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
   File? imageCoverFile = null;
   String? judul = null;
-  String? penerbit = null;
+  String? anakJudul = null;
   String? pengarang = null;
-  String? tahun = null;
-  String? jenis = null;
+  String? pengarangTambahan = null;
+  String? penerbit = null;
+  String? tempatTerbit= null;
+  String? tahunTerbit= null;
+
+  int? jumlahHalaman= null;
+  String? keteranganIlustrasi= null;
+  String? dimensi= null;
+  String? edisi= null;
+  String? subjek= null;
+  String? noKlass= null;
+  String? noPanggil= null;
+  String? ISBN= null;
+  String? bahasa= null;
+  String? bentukKaryaTulis= null;
+  String? kelompokSasaran= null;
+  String? lokasiKoleksiDaring= null;
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +70,27 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  hint: "Anak Judul",
+                  onChange: (val) {
+                    anakJudul = val;
+                  },
+                  secureText: false,
+                ),
+                InputFieldRounded(
+                  hint: "pengarang",
+                  onChange: (val) {
+                    pengarang = val;
+                  },
+                  secureText: false,
+                ),
+                InputFieldRounded(
+                  hint: "Pengarang Tambahan",
+                  onChange: (val) {
+                    pengarangTambahan = val;
+                  },
+                  secureText: false,
+                ),
+                InputFieldRounded(
                   hint: "Penerbit",
                   onChange: (val) {
                     penerbit = val;
@@ -62,23 +98,100 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
-                  hint: "Pengarang",
+                  hint: "Tempat Terbit",
                   onChange: (val) {
-                    pengarang = val;
+                    tempatTerbit = val;
                   },
                   secureText: false,
                 ),
                 InputFieldRounded(
-                  hint: "Tahun",
+                  hint: "Tahun Terbit",
                   onChange: (val) {
-                    tahun = val;
+                    tahunTerbit = val;
                   },
                   secureText: false,
                 ),
                 InputFieldRounded(
-                  hint: "Jenis",
+                  hint: "Jumlah Halaman",
                   onChange: (val) {
-                    jenis = val;
+                    jumlahHalaman = int.parse(val);
+                  },
+                  secureText: false,
+                ),
+                InputFieldRounded(
+                  hint: "Keterangan Ilustrasi",
+                  onChange: (val) {
+                    keteranganIlustrasi = val;
+                  },
+                  secureText: false,
+                ),
+                InputFieldRounded(
+                  hint: "Dimensi",
+                  onChange: (val) {
+                    dimensi = val;
+                  },
+                  secureText: false,
+                ),
+                InputFieldRounded(
+                  hint: "Edisi",
+                  onChange: (val) {
+                    edisi = val;
+                  },
+                  secureText: false,
+                ),
+                InputFieldRounded(
+                  hint: "Subjek",
+                  onChange: (val) {
+                    subjek = val;
+                  },
+                  secureText: false,
+                ),
+                InputFieldRounded(
+                  hint: "No Klass",
+                  onChange: (val) {
+                    noKlass = val;
+                  },
+                  secureText: false,
+                ),
+                InputFieldRounded(
+                  hint: "No Panggil",
+                  onChange: (val) {
+                    noPanggil = val;
+                  },
+                  secureText: false,
+                ),
+                InputFieldRounded(
+                  hint: "ISBN",
+                  onChange: (val) {
+                    ISBN = val;
+                  },
+                  secureText: false,
+                ),
+                InputFieldRounded(
+                  hint: "Bahasa",
+                  onChange: (val) {
+                    bahasa = val;
+                  },
+                  secureText: false,
+                ),
+                InputFieldRounded(
+                  hint: "Bentuk Karya Tulis",
+                  onChange: (val) {
+                    bentukKaryaTulis = val;
+                  },
+                  secureText: false,
+                ),
+                InputFieldRounded(
+                  hint: "Kelompok Sasaran",
+                  onChange: (val) {
+                    kelompokSasaran = val;
+                  },
+                  secureText: false,
+                ),
+                InputFieldRounded(
+                  hint: "Lokasi Koleksi Daring",
+                  onChange: (val) {
+                    lokasiKoleksiDaring = val;
                   },
                   secureText: false,
                 ),
@@ -127,18 +240,46 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
 
   doTambahBuku() async {
     if (judul != null &&
-        penerbit != null &&
+        anakJudul != null &&
         pengarang != null &&
-        tahun != null &&
-        jenis != null &&
+        pengarangTambahan != null &&
+        tempatTerbit != null &&
+        tahunTerbit != null &&
+        jumlahHalaman != null &&
+        keteranganIlustrasi != null &&
+        dimensi != null &&
+        edisi != null &&
+        subjek != null &&
+        noKlass != null &&
+        noPanggil != null &&
+        ISBN != null &&
+        bahasa != null &&
+        bentukKaryaTulis != null &&
+        kelompokSasaran != null &&
+        lokasiKoleksiDaring != null &&
         imageCoverFile != null) {
       var buku = BukuModel(
-          judul: judul!,
-          isAvailable: true,
-          pengarang: pengarang!,
-          penerbit: penerbit!,
-          jenis: jenis!,
-          tahun: tahun!);
+        judul: judul!,
+        anakJudul: anakJudul!,
+        pengarang: pengarang!,
+        pengarangTambahan: pengarangTambahan!,
+        penerbit: penerbit!,
+        tempatTerbit: tempatTerbit!,
+        tahunTerbit: tahunTerbit!,
+        jumlahHalaman: jumlahHalaman!,
+        keteranganIlustrasi: keteranganIlustrasi!,
+        dimensi: dimensi!,
+        edisi: edisi!,
+        subjek: subjek!,
+        noKlass: noKlass!,
+        noPanggil: noPanggil!,
+        ISBN: ISBN!,
+        bahasa: bahasa!,
+        bentukKaryaTulis: bentukKaryaTulis!,
+        kelompokSasaran: kelompokSasaran!,
+        lokasiKoleksiDaring: lokasiKoleksiDaring!,
+        isAvailable: true,
+      );
 
       EasyLoading.show(status: "Loading");
 

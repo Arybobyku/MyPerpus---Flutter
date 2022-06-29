@@ -6,9 +6,10 @@ class ButtonRounded extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
   final bool invert;
+  final bool disabled;
 
   const ButtonRounded(
-      {Key? key, this.onPressed, required this.text, this.invert = false})
+      {Key? key, this.onPressed, required this.text, this.invert = false,this.disabled=false})
       : super(key: key);
 
   @override

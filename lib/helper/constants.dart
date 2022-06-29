@@ -1,11 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:my_perpus/helper/color_palette.dart';
+import 'package:intl/intl.dart';
 
 class Constants{
   static const String userName = 'userName';
   static const String role = 'role';
+  static const String userModel = 'userModel';
 }
 
+String parseDate(String dateString) {
+  var parsedDate = DateTime.parse(dateString);
+  return  DateFormat.yMMMMd("en_US").format(parsedDate);
+}
+
+String checkStatus(int status){
+  switch(status){
+    case 0:
+      return "Menunggu Konfirmasi";
+    case 0:
+      return "Dikonfirmasi";
+    case 2:
+      return "Peminjaman";
+    case 3:
+      return "Selesai";
+    default:
+      return "-";
+  }
+}
 
 final kRoundedContainer = BoxDecoration(
   color: Colors.white,

@@ -34,13 +34,27 @@ class BukuService {
   Future<void> setBuku(BukuModel bukuModel)async{
       try{
        await  _bukuReference.doc().set({
-          'judul': bukuModel.judul,
-          'penerbit': bukuModel.penerbit,
-          'pengarang': bukuModel.pengarang,
-          'isAvailable': bukuModel.isAvailable,
-          'tahun': bukuModel.tahun,
-          'jenis': bukuModel.jenis,
-          'gambar': bukuModel.gambar,
+         'gambar': bukuModel.gambar,
+         'judul': bukuModel.judul,
+         'anakJudul': bukuModel.anakJudul,
+         'pengarang': bukuModel.pengarang,
+         'pengarangTambahan': bukuModel.pengarangTambahan,
+         'penerbit': bukuModel.penerbit,
+         'tempatTerbit': bukuModel.tempatTerbit,
+         'tahunTerbit': bukuModel.tahunTerbit,
+         'jumlahHalaman': bukuModel.jumlahHalaman,
+         'keteranganIlustrasi': bukuModel.keteranganIlustrasi,
+         'dimensi': bukuModel.dimensi,
+         'edisi': bukuModel.edisi,
+         'subjek': bukuModel.subjek,
+         'noKlass': bukuModel.noKlass,
+         'noPanggil': bukuModel.noPanggil,
+         'ISBN': bukuModel.ISBN,
+         'bahasa': bukuModel.bahasa,
+         'bentukKaryaTulis': bukuModel.bentukKaryaTulis,
+         'kelompokSasaran': bukuModel.kelompokSasaran,
+         'lokasiKoleksiDaring': bukuModel.lokasiKoleksiDaring,
+         'isAvailable': bukuModel.isAvailable
         });
       }catch(e){
         rethrow;

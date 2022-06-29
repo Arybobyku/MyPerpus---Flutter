@@ -34,29 +34,32 @@ class _UserHomePageState extends State<UserHomePage> {
                       enable: false,
                     ),
                   ),
-                  Stack(
-                    children: [
-                      if (valuePeminjaman.keranjang.isNotEmpty)
-                        Container(
-                          padding: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle, color: Colors.red),
-                          child: Text(
-                            valuePeminjaman.keranjang.length.toString(),
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                  GestureDetector(
+                    onTap: ()=>Get.toNamed(Routes.userKeranjang),
+                    child: Stack(
+                      children: [
+                        if (valuePeminjaman.keranjang.isNotEmpty)
+                          Container(
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle, color: Colors.red),
+                            child: Text(
+                              valuePeminjaman.keranjang.length.toString(),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 12, left: 5),
+                          child: Icon(
+                            Icons.card_travel,
+                            color: ColorPalette.generalPrimaryColor,
+                            size: 30,
                           ),
                         ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 12, left: 5),
-                        child: Icon(
-                          Icons.card_travel,
-                          color: ColorPalette.generalPrimaryColor,
-                          size: 30,
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   SizedBox(width: 15)
                 ],
