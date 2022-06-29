@@ -17,7 +17,7 @@ String checkStatus(int status){
   switch(status){
     case 0:
       return "Menunggu Konfirmasi";
-    case 0:
+    case 1:
       return "Dikonfirmasi";
     case 2:
       return "Peminjaman";

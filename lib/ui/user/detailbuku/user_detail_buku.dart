@@ -60,19 +60,19 @@ class UserDetailBukuPage extends StatelessWidget {
                         VerticalTitleValue(
                             title: 'Pengarang',
                             value: valueBuku.bukuDetail!.pengarang),
-                        SizedBox(height: 8),
+                        SizedBox(height: 15),
                         VerticalTitleValue(
                             title: 'Penerbit',
                             value: valueBuku.bukuDetail!.penerbit),
-                        SizedBox(height: 8),
+                        SizedBox(height: 15),
                         VerticalTitleValue(
                             title: 'Jenis Buku',
                             value: valueBuku.bukuDetail!.bentukKaryaTulis),
-                        SizedBox(height: 8),
+                        SizedBox(height: 15),
                         VerticalTitleValue(
                             title: 'Tahun Terbit',
                             value: valueBuku.bukuDetail!.tahunTerbit),
-                        SizedBox(height: 8),
+                        SizedBox(height: 15),
                       ],
                     ),
                   ),

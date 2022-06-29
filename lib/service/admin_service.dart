@@ -5,6 +5,9 @@ class AdminService{
   final CollectionReference _peminjamanReference =
   FirebaseFirestore.instance.collection('Peminjaman');
 
+  final CollectionReference _bukuReference =
+  FirebaseFirestore.instance.collection('Buku');
+
   Future<List<PeminjamanModel>> getAllPeminjaman()async{
     try{
       QuerySnapshot result = await _peminjamanReference.get();
@@ -16,5 +19,21 @@ class AdminService{
     }catch(e){
       rethrow;
     }
+  }
+
+  konfirmasiPeminjaman(PeminjamanModel peminjaman)async{
+      try{
+        var peminjamanById = await _peminjamanReference.doc(peminjaman.id);
+        peminjamanById.update({
+          "status":1
+        });
+
+        var bukuById = await _bukuReference.doc(peminjaman.bukuModel.id);
+        bukuById.update({
+          "isAvailable":false
+        });
+      }catch(e){
+        rethrow;
+      }
   }
 }

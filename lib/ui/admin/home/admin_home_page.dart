@@ -36,7 +36,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
       child: Consumer<AdminProvider>(builder: (context, valueAdmin, _) {
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.white,
+            backgroundColor: ColorPalette.generalBackgroundColor,
             title: Text(
               "Admin",
               style: TextStyle(color: ColorPalette.generalPrimaryColor),
@@ -52,7 +52,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
               SizedBox(width: 15),
             ],
           ),
-          backgroundColor: ColorPalette.generalSoftGrey,
+          backgroundColor: ColorPalette.generalBackgroundColor,
           floatingActionButton: FloatingActionButton(
             backgroundColor: ColorPalette.generalPrimaryColor,
             child: Icon(
@@ -70,11 +70,17 @@ class _AdminHomePageState extends State<AdminHomePage> {
                   itemCount: valueAdmin.listPeminjaman.length,
                   physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                          bottom: 20, left: 20, right: 20),
-                      child: StatusPeminjaman(
-                        peminjamanModel: valueAdmin.listPeminjaman[index],
+                    return GestureDetector(
+                      onTap: (){
+                        Provider.of<AdminProvider>(context,listen: false).onClickDetailPeminjaman(valueAdmin.listPeminjaman[index]);
+                        Get.toNamed(Routes.adminDetail);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            bottom: 20, left: 20, right: 20),
+                        child: StatusPeminjaman(
+                          peminjamanModel: valueAdmin.listPeminjaman[index],
+                        ),
                       ),
                     );
                   },
