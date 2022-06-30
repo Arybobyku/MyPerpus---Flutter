@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_perpus/helper/color_palette.dart';
 import 'package:my_perpus/provider/buku.dart';
+import 'package:my_perpus/provider/peminjaman.dart';
 import 'package:my_perpus/ui/user/home/user_home_page.dart';
 import 'package:my_perpus/ui/user/profile/user_profile_page.dart';
 import 'package:my_perpus/ui/user/riwayat/user_riwayat_page.dart';
@@ -21,6 +22,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
   void initState() {
     if(getData){
       Provider.of<BukuProvider>(context, listen: false).doGetAllBook();
+      Provider.of<PeminjamanProvider>(context, listen: false).getRiwayatSaya();
       getData = false;
     }
     super.initState();

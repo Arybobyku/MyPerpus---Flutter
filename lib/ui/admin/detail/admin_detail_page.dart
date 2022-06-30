@@ -88,7 +88,19 @@ class _AdminDetailPageState extends State<AdminDetailPage> {
                 ButtonRounded(
                   text: "Konfirmasi Peminjaman",
                   onPressed: () => doKonfirmasiPeminjaman(context),
-                )
+                ),
+
+                if(valueAdmin.detailPeminjaman.status==1)
+                  ButtonRounded(
+                    text: "Konfirmasi Pengambilan",
+                    onPressed: () => doKonfirmasiPengambilan(context),
+                  ),
+                if(valueAdmin.detailPeminjaman.status==2)
+                  ButtonRounded(
+                    text: "Konfirmasi Pengembalian",
+                    onPressed: () => doKonfirmasiPengembalian(context),
+                  ),
+
               ],
             ),
           ),
@@ -128,6 +140,104 @@ class _AdminDetailPageState extends State<AdminDetailPage> {
         type: AlertType.success,
         title: "Sukses",
         desc: "Sukses konfirmasi peminjaman",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "Close",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            onPressed: (){
+              Navigator.pop(context);
+              Get.back();
+            },
+            color: ColorPalette.generalPrimaryColor,
+            radius: BorderRadius.circular(0.0),
+          ),
+        ],
+      ).show();
+    });
+  }
+
+  doKonfirmasiPengambilan(BuildContext context) async {
+    EasyLoading.show(status: "Loading");
+    var result = await Provider.of<AdminProvider>(context, listen: false)
+        .doKonfirmasiPengambilan();
+
+    result.fold((l) {
+      EasyLoading.dismiss();
+      Alert(
+        context: context,
+        type: AlertType.error,
+        title: "Gagal",
+        desc: l,
+        buttons: [
+          DialogButton(
+            child: Text(
+              "Close",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            onPressed: () => Navigator.pop(context),
+            color: ColorPalette.generalPrimaryColor,
+            radius: BorderRadius.circular(0.0),
+          ),
+        ],
+      ).show();
+    }, (r) {
+      EasyLoading.dismiss();
+      Alert(
+        context: context,
+        type: AlertType.success,
+        title: "Sukses",
+        desc: "Sukses konfirmasi pengambilan",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "Close",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            onPressed: (){
+              Navigator.pop(context);
+              Get.back();
+            },
+            color: ColorPalette.generalPrimaryColor,
+            radius: BorderRadius.circular(0.0),
+          ),
+        ],
+      ).show();
+    });
+  }
+
+  doKonfirmasiPengembalian(BuildContext context) async {
+    EasyLoading.show(status: "Loading");
+    var result = await Provider.of<AdminProvider>(context, listen: false)
+        .doKonfirmasiPengembalian();
+
+    result.fold((l) {
+      EasyLoading.dismiss();
+      Alert(
+        context: context,
+        type: AlertType.error,
+        title: "Gagal",
+        desc: l,
+        buttons: [
+          DialogButton(
+            child: Text(
+              "Close",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            onPressed: () => Navigator.pop(context),
+            color: ColorPalette.generalPrimaryColor,
+            radius: BorderRadius.circular(0.0),
+          ),
+        ],
+      ).show();
+    }, (r) {
+      EasyLoading.dismiss();
+      Alert(
+        context: context,
+        type: AlertType.success,
+        title: "Sukses",
+        desc: "Sukses konfirmasi pengembalian",
         buttons: [
           DialogButton(
             child: Text(

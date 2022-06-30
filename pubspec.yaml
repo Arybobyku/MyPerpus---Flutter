@@ -29,6 +29,7 @@ dependencies:
   google_fonts:
   get:
   intl:
+  flutter_local_notifications:
   lottie:
   pull_to_refresh: ^2.0.0
   get_it:

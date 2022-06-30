@@ -25,6 +25,7 @@ class BukuProvider extends ChangeNotifier {
 
   Future<Either<String, List<BukuModel>>> doGetAllBook() async {
     try {
+      listBuku = [];
       var result = await _bukuService.getAllBuku();
       listBuku = result;
       notifyListeners();
@@ -34,14 +35,25 @@ class BukuProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> updateBukuStatus(List<BukuModel> id)async{
+    id.forEach((buku) async{
+      buku.isAvailable = false;
+      listBuku[listBuku.indexWhere((element) => element.id==buku.id)] = buku;
+    });
+
+    notifyListeners();
+  }
+
   clickBukuDetail(BukuModel bukuModel) {
     bukuDetail = bukuModel;
     notifyListeners();
   }
 
   searchBook(String keyword) {
+
     searchResult = listBuku.where((element) =>
     element.judul.toLowerCase().contains(keyword) ||
+    element.anakJudul.toLowerCase().contains(keyword) ||
         element.pengarang.toLowerCase().contains(keyword) ||
         element.penerbit.toLowerCase().contains(keyword)
     ).toList();

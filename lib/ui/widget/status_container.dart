@@ -13,7 +13,7 @@ class StatusContainer extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: ColorPalette.generalSoftGreen),
+          color:backgroundStatus(status)),
       child: Text(
         checkStatus(status),
         style: TextStyle(fontWeight: FontWeight.bold),

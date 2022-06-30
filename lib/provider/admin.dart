@@ -37,4 +37,28 @@ class AdminProvider extends ChangeNotifier{
     }
   }
 
+  Future<Either<String,bool>> doKonfirmasiPengambilan()async{
+    try{
+      await _adminService.konfirmasiPeminjaman(detailPeminjaman);
+      detailPeminjaman.status = 2;
+      listPeminjaman[listPeminjaman.indexWhere((element) => element.id == detailPeminjaman.id)] = detailPeminjaman;
+      notifyListeners();
+      return right(true);
+    }catch(e){
+      return left(e.toString());
+    }
+  }
+
+  Future<Either<String,bool>> doKonfirmasiPengembalian()async{
+    try{
+      await _adminService.konfirmasiPengembalian(detailPeminjaman);
+      detailPeminjaman.status = 3;
+      listPeminjaman[listPeminjaman.indexWhere((element) => element.id == detailPeminjaman.id)] = detailPeminjaman;
+      notifyListeners();
+      return right(true);
+    }catch(e){
+      return left(e.toString());
+    }
+  }
+
 }

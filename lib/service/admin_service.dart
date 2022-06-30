@@ -36,4 +36,31 @@ class AdminService{
         rethrow;
       }
   }
+
+  konfirmasiPengambilan(PeminjamanModel peminjaman)async{
+    try{
+      var peminjamanById = await _peminjamanReference.doc(peminjaman.id);
+      peminjamanById.update({
+        "status":2
+      });
+    }catch(e){
+      rethrow;
+    }
+  }
+
+  konfirmasiPengembalian(PeminjamanModel peminjaman)async{
+    try{
+      var peminjamanById = await _peminjamanReference.doc(peminjaman.id);
+      peminjamanById.update({
+        "status":3
+      });
+
+      var bukuById = await _bukuReference.doc(peminjaman.bukuModel.id);
+      bukuById.update({
+        "isAvailable":true
+      });
+    }catch(e){
+      rethrow;
+    }
+  }
 }

@@ -18,13 +18,28 @@ String checkStatus(int status){
     case 0:
       return "Menunggu Konfirmasi";
     case 1:
-      return "Dikonfirmasi";
+      return "Pengambilan";
     case 2:
       return "Peminjaman";
     case 3:
       return "Selesai";
     default:
       return "-";
+  }
+}
+
+Color backgroundStatus(int status){
+  switch(status){
+    case 0:
+      return ColorPalette.generalSoftOrange;
+    case 1:
+      return ColorPalette.generalSoftGreen;
+    case 2:
+      return ColorPalette.generalSoftPurple;
+    case 3:
+      return ColorPalette.generalSoftYellow;
+    default:
+      return ColorPalette.generalSoftYellow;
   }
 }
 

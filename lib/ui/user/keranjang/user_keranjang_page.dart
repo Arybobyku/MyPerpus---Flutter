@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:my_perpus/helper/color_palette.dart';
 import 'package:my_perpus/model/buku_model.dart';
 import 'package:my_perpus/provider/auth.dart';
+import 'package:my_perpus/provider/buku.dart';
 import 'package:my_perpus/provider/peminjaman.dart';
+import 'package:my_perpus/routes.dart';
 import 'package:my_perpus/ui/widget/button_rounded.dart';
 import 'package:my_perpus/ui/widget/horizontal_book.dart';
 import 'package:provider/provider.dart';
@@ -104,7 +106,8 @@ class UserKeranjangPage extends StatelessWidget {
           ],
         ).show();
       },
-      (r) {
+      (r)async {
+        await Provider.of<BukuProvider>(context,listen:false).updateBukuStatus(r);
         EasyLoading.dismiss();
         Alert(
           context: context,
