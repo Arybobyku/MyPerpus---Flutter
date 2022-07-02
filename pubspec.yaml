@@ -36,6 +36,7 @@ dependencies:
   fpdart:
   injectable:
   flutter_datetime_picker: ^1.5.1
+  workmanager:
 
 dev_dependencies:
   flutter_test:

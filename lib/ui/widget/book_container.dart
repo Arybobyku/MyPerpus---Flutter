@@ -47,11 +47,13 @@ class BookContainer extends StatelessWidget {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
             SizedBox(height: 4),
-            Text(
-              bukuModel.pengarang,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 14),
+            Expanded(
+              child: Text(
+                bukuModel.pengarang,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 14),
+              ),
             ),
           ],
         ),

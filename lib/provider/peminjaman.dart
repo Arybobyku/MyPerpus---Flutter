@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:my_perpus/helper/constants.dart';
 import 'package:my_perpus/model/buku_model.dart';
 import 'package:my_perpus/model/peminjaman_model.dart';
 import 'package:my_perpus/model/user_model.dart';
+import 'package:my_perpus/service/notification.dart';
 import 'package:my_perpus/service/peminjaman_service.dart';
 
 import '../service/riwayat_service.dart';
@@ -15,6 +17,8 @@ class PeminjamanProvider extends ChangeNotifier{
 
   List<PeminjamanModel> riwayatSaya = [];
   late PeminjamanModel detailRiwayat;
+
+  List<PeminjamanModel> deadlinePengembalian = [];
 
   tambahKeKeranjang(BukuModel model){
     if(keranjang.length<=3){
@@ -32,11 +36,11 @@ class PeminjamanProvider extends ChangeNotifier{
     detailRiwayat = peminjamanModel;
   }
 
-  Future<Either<String,List<BukuModel>>> doPeminjaman(UserModel user)async{
+  Future<Either<String,List<BukuModel>>> doPeminjaman(UserModel user, DateTime tanggalPeminjman)async{
     try{
       List<BukuModel> buku = [];
       keranjang.forEach((element)async {
-        await _peminjamanService.setPeminjaman(element,user);
+        await _peminjamanService.setPeminjaman(element,user,tanggalPeminjman);
         buku.add(element);
       });
       keranjang = [];
@@ -52,11 +56,26 @@ class PeminjamanProvider extends ChangeNotifier{
     try{
       var result = await _riwayatService.getMyPeinjaman();
       riwayatSaya = result;
+
+      riwayatSaya.forEach((element) {
+        if(getDurationDifferenceInt(element.tanggalPeminjaman!, element.tanggalPengembalian!)<2 && element.status==2){
+          showNotification("Buku ${element.bukuModel.judul} harus segera dikembalikan sebelum tanggal ${parseDate(element.tanggalPengembalian.toString())}");
+        }
+      });
       notifyListeners();
       return right(true);
     }catch(e){
       return left(e.toString());
     }
+  }
+
+  Future showNotification(String message)async{
+    await NotificationService.flutterLocalNotificationsPlugin.show(
+        12345,
+        "Pengembalian Buku",
+        message,
+        platformChannelSpecifics,
+        payload: 'data');
   }
 
 }

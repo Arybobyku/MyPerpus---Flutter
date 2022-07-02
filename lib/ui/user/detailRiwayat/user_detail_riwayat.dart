@@ -44,6 +44,10 @@ class UserDetailRiwayat extends StatelessWidget {
                     VerticalTitleValue(
                         title: 'ID Peminjaman',
                         value: peminjaman.detailRiwayat.id ?? "-"),
+                    SizedBox(height: 20),
+                    VerticalTitleValue(
+                        title: 'Hari Pengembalian',
+                        value:getDurationDifference(peminjaman.detailRiwayat.tanggalPeminjaman!,peminjaman.detailRiwayat.tanggalPengembalian!)),
                   ],
                 ),
               ),

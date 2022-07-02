@@ -12,8 +12,7 @@ class PeminjamanService {
   final CollectionReference _bukuReference =
   FirebaseFirestore.instance.collection('Buku');
 
-  Future<void> setPeminjaman(BukuModel buku, UserModel user) async {
-    DateTime tanggalPeminjaman = DateTime.now();
+  Future<void> setPeminjaman(BukuModel buku, UserModel user, DateTime tanggalPeminjaman) async {
     DateTime tanggalPengembalian = tanggalPeminjaman.add(Duration(days: 14));
     try {
       await _peminjaman.doc().set({

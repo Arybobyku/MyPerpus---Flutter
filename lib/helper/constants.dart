@@ -28,6 +28,19 @@ String checkStatus(int status){
   }
 }
 
+String getDurationDifference(DateTime startTime, DateTime endTime){
+  final difference = endTime.difference(startTime);
+
+  var sDuration = '';
+  sDuration = "${difference.inDays} Hari";
+  return sDuration;
+}
+
+int getDurationDifferenceInt(DateTime startTime, DateTime endTime){
+  final difference = endTime.difference(startTime);
+  return difference.inDays;
+}
+
 Color backgroundStatus(int status){
   switch(status){
     case 0:

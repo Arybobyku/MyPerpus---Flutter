@@ -39,7 +39,7 @@ class AdminProvider extends ChangeNotifier{
 
   Future<Either<String,bool>> doKonfirmasiPengambilan()async{
     try{
-      await _adminService.konfirmasiPeminjaman(detailPeminjaman);
+      await _adminService.konfirmasiPengambilan(detailPeminjaman);
       detailPeminjaman.status = 2;
       listPeminjaman[listPeminjaman.indexWhere((element) => element.id == detailPeminjaman.id)] = detailPeminjaman;
       notifyListeners();

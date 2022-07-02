@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:my_perpus/helper/color_palette.dart';
 import 'package:my_perpus/injection.dart';
@@ -12,20 +13,49 @@ import 'package:my_perpus/provider/peminjaman.dart';
 import 'package:my_perpus/routes.dart';
 import 'package:my_perpus/setup_locator.dart';
 import 'package:provider/provider.dart';
+import 'package:workmanager/workmanager.dart';
+
+import 'service/notification.dart';
 
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   configureInjection();
-
+  await NotificationService().init();
   await Firebase.initializeApp();
   await SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
   );
 
+
+
   setupLocator().then((value) {
+    Workmanager().initialize(
+        callbackDispatcher, // The top level function, aka callbackDispatcher
+        isInDebugMode: true // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
+    );
+    Workmanager().registerPeriodicTask("peminjaman", "peminjaman",frequency: Duration(minutes: 1));
+    runApp(MyApp());
     runApp(const MyApp());
   });
+}
+
+setUpNotification()async{
+  final AndroidInitializationSettings initializationSettingsAndroid =
+  AndroidInitializationSettings('app_icon');
+
+  final IOSInitializationSettings initializationSettingsIOS =
+  IOSInitializationSettings(
+    requestSoundPermission: false,
+    requestBadgePermission: false,
+    requestAlertPermission: false,
+  );
+
+  final InitializationSettings initializationSettings =
+  InitializationSettings(
+      android: initializationSettingsAndroid,
+      iOS: initializationSettingsIOS,
+      macOS: null);
 }
 
 class MyApp extends StatelessWidget {
@@ -57,4 +87,16 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+}
+
+void callbackDispatcher() {
+  Workmanager().executeTask((task, inputData) async{
+    await NotificationService.flutterLocalNotificationsPlugin.show(
+        12345,
+        "Pengembalian Buku",
+        "Ini Dari work manager",
+        platformChannelSpecifics,
+        payload: 'data');
+    return Future.value(true);
+  });
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:my_perpus/helper/color_palette.dart';
+import 'package:my_perpus/helper/constants.dart';
 import 'package:my_perpus/model/buku_model.dart';
 import 'package:my_perpus/provider/auth.dart';
 import 'package:my_perpus/provider/buku.dart';
@@ -12,14 +14,22 @@ import 'package:my_perpus/ui/widget/horizontal_book.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-class UserKeranjangPage extends StatelessWidget {
+class UserKeranjangPage extends StatefulWidget {
   const UserKeranjangPage({Key? key}) : super(key: key);
+
+  @override
+  _UserKeranjangPageState createState() => _UserKeranjangPageState();
+}
+
+class _UserKeranjangPageState extends State<UserKeranjangPage> {
+
+  DateTime? tanggalPeminjaman = null;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child:
-          Consumer<PeminjamanProvider>(builder: (context, valuePeminjaman, _) {
+      Consumer<PeminjamanProvider>(builder: (context, valuePeminjaman, _) {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
@@ -30,6 +40,7 @@ class UserKeranjangPage extends StatelessWidget {
             ),
           ),
           body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: ListView.builder(
@@ -49,10 +60,10 @@ class UserKeranjangPage extends StatelessWidget {
                           ),
                           GestureDetector(
                             onTap: () => Provider.of<PeminjamanProvider>(
-                                    context,
-                                    listen: false)
+                                context,
+                                listen: false)
                                 .hapusItemDalamKeranjang(
-                                    valuePeminjaman.keranjang[index].id!),
+                                valuePeminjaman.keranjang[index].id!),
                             child: Icon(
                               Icons.delete,
                               size: 30,
@@ -64,7 +75,35 @@ class UserKeranjangPage extends StatelessWidget {
                   },
                 ),
               ),
-              if (valuePeminjaman.keranjang.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: GestureDetector(
+                  onTap: () {
+                    DatePicker.showDatePicker(
+                      context,
+                      onChanged: (val) {},
+                      onConfirm: (val) {
+                        setState(() {
+                          tanggalPeminjaman = val;
+                        });
+                      },
+                    );
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                    decoration: kRoundedContainer,
+                    child: Text(
+                        tanggalPeminjaman != null
+                            ? "${tanggalPeminjaman?.day}/${tanggalPeminjaman?.month}/${tanggalPeminjaman?.year}"
+                            : "Tanggal Peminjaman",
+                        style: TextStyle(
+                            color: ColorPalette.generalPrimaryColor,
+                            fontSize: 16)),
+                  ),
+                ),
+              ),
+              if (valuePeminjaman.keranjang.isNotEmpty && tanggalPeminjaman!=null)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: ButtonRounded(
@@ -83,10 +122,10 @@ class UserKeranjangPage extends StatelessWidget {
     EasyLoading.show(status: "Loading");
     var user = Provider.of<AuthProvider>(context,listen: false).user;
     var result = await Provider.of<PeminjamanProvider>(context, listen: false)
-        .doPeminjaman(user);
+        .doPeminjaman(user,tanggalPeminjaman!);
 
     result.fold(
-      (l) {
+          (l) {
         EasyLoading.dismiss();
         Alert(
           context: context,
@@ -106,7 +145,7 @@ class UserKeranjangPage extends StatelessWidget {
           ],
         ).show();
       },
-      (r)async {
+          (r)async {
         await Provider.of<BukuProvider>(context,listen:false).updateBukuStatus(r);
         EasyLoading.dismiss();
         Alert(
