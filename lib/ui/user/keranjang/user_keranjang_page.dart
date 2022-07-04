@@ -75,8 +75,9 @@ class _UserKeranjangPageState extends State<UserKeranjangPage> {
                   },
                 ),
               ),
+        if (valuePeminjaman.keranjang.isNotEmpty)
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
                 child: GestureDetector(
                   onTap: () {
                     DatePicker.showDatePicker(
@@ -123,6 +124,7 @@ class _UserKeranjangPageState extends State<UserKeranjangPage> {
     var user = Provider.of<AuthProvider>(context,listen: false).user;
     var result = await Provider.of<PeminjamanProvider>(context, listen: false)
         .doPeminjaman(user,tanggalPeminjaman!);
+    await Provider.of<AuthProvider>(context,listen: false).userIsOrderBook();
 
     result.fold(
           (l) {

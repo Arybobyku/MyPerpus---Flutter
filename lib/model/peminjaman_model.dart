@@ -9,6 +9,7 @@ class PeminjamanModel {
   int status;
   DateTime? tanggalPeminjaman;
   DateTime? tanggalPengembalian;
+  int perpanjang;
 
   PeminjamanModel({
     this.id,
@@ -18,6 +19,7 @@ class PeminjamanModel {
     required this.status,
     this.tanggalPeminjaman,
     this.tanggalPengembalian,
+    required this.perpanjang
   });
 
   factory PeminjamanModel.fromjson(Map<String, dynamic> json, String id) {
@@ -31,6 +33,7 @@ class PeminjamanModel {
       status: json['status'],
       tanggalPeminjaman: jsonTglPeminjaman.toDate(),
       tanggalPengembalian: jsonTglPengembalian.toDate(),
+      perpanjang:  json['perpanjang']
     );
   }
 
@@ -42,6 +45,7 @@ class PeminjamanModel {
     'status': status,
     'tanggalPeminjaman': tanggalPeminjaman,
     'tanggalPengembalian': tanggalPengembalian,
+    'perpanjang': perpanjang,
   };
 
 }

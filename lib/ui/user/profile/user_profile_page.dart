@@ -33,6 +33,16 @@ class UserProfilePage extends StatelessWidget {
                         children: [
                           Row(
                             children: [
+                              SizedBox(width: 5),
+                              Text("ID",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
+                              SizedBox(width: 10),
+                              Text(valueAuth.user.id!)
+
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
                               Icon(Icons.person),
                               SizedBox(width: 10),
                               Text(valueAuth.user.namaLengkap)

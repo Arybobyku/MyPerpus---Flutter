@@ -13,6 +13,7 @@ class UserModel {
   late String alamat;
   late String provinsi;
   late String kota;
+  late bool isOrder;
 
   UserModel({
     this.id,
@@ -27,6 +28,7 @@ class UserModel {
     required this.password,
     required this.email,
     required this.jenisIdentitas,
+    required this.isOrder
   });
 
   factory UserModel.fromjson(Map<String, dynamic> json, String id) {
@@ -43,6 +45,7 @@ class UserModel {
       password: '',
       email: json['email'],
       jenisIdentitas: json['jenisIdentitas'],
+      isOrder: json['isOrder'],
     );
   }
 
@@ -60,6 +63,7 @@ class UserModel {
       password: '',
       email: json['email'],
       jenisIdentitas: json['jenisIdentitas'],
+      isOrder: json['isOrder'],
     );
   }
 
@@ -75,6 +79,7 @@ class UserModel {
     'nomorIdentitas': nomorIdentitas,
     'email': email,
     'jenisIdentitas': jenisIdentitas,
+    'isOrder': isOrder,
   };
 
 }

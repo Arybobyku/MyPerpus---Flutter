@@ -94,7 +94,7 @@ void callbackDispatcher() {
     await NotificationService.flutterLocalNotificationsPlugin.show(
         12345,
         "Pengembalian Buku",
-        "Ini Dari work manager",
+        "Harap mengembalikan buku",
         platformChannelSpecifics,
         payload: 'data');
     return Future.value(true);

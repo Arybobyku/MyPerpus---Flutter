@@ -3,62 +3,74 @@ import 'package:fpdart/fpdart.dart';
 import 'package:my_perpus/model/peminjaman_model.dart';
 import 'package:my_perpus/service/admin_service.dart';
 
-class AdminProvider extends ChangeNotifier{
+class AdminProvider extends ChangeNotifier {
   AdminService _adminService = AdminService();
   List<PeminjamanModel> listPeminjaman = [];
+  PeminjamanModel? searchPeminjaman = null;
   late PeminjamanModel detailPeminjaman;
 
-  Future<Either<String, List<PeminjamanModel>>>  getAllPeminjaman()async{
-     try{
-     var result = await  _adminService.getAllPeminjaman();
-     listPeminjaman = result;
-     notifyListeners();
-     return right(result);
-     }catch(e){
-       print("MY ERROR ${e}");
-       return left(e.toString());
-     }
+  Future<Either<String, List<PeminjamanModel>>> getAllPeminjaman() async {
+    try {
+      listPeminjaman = [];
+      var result = await _adminService.getAllPeminjaman();
+      listPeminjaman = result;
+      notifyListeners();
+      return right(result);
+    } catch (e) {
+      print("MY ERROR ${e}");
+      return left(e.toString());
+    }
   }
 
-  onClickDetailPeminjaman(PeminjamanModel peminjaman){
+  onClickDetailPeminjaman(PeminjamanModel peminjaman) {
     detailPeminjaman = peminjaman;
     notifyListeners();
   }
 
-  Future<Either<String,bool>> doKonfirmasiPeminjaman()async{
-    try{
-     await _adminService.konfirmasiPeminjaman(detailPeminjaman);
-     detailPeminjaman.status = 1;
-     listPeminjaman[listPeminjaman.indexWhere((element) => element.id == detailPeminjaman.id)] = detailPeminjaman;
-     notifyListeners();
-     return right(true);
-    }catch(e){
-      return left(e.toString());
-    }
-  }
-
-  Future<Either<String,bool>> doKonfirmasiPengambilan()async{
-    try{
-      await _adminService.konfirmasiPengambilan(detailPeminjaman);
+  Future<Either<String, bool>> doKonfirmasiPeminjaman() async {
+    try {
+      await _adminService.konfirmasiPeminjaman(detailPeminjaman);
       detailPeminjaman.status = 2;
-      listPeminjaman[listPeminjaman.indexWhere((element) => element.id == detailPeminjaman.id)] = detailPeminjaman;
+      listPeminjaman[listPeminjaman.indexWhere((element) =>
+      element.id == detailPeminjaman.id)] = detailPeminjaman;
       notifyListeners();
       return right(true);
-    }catch(e){
+    } catch (e) {
       return left(e.toString());
     }
   }
 
-  Future<Either<String,bool>> doKonfirmasiPengembalian()async{
-    try{
+  Future<Either<String, bool>> doKonfirmasiPengambilan() async {
+    try {
+      await _adminService.konfirmasiPengambilan(detailPeminjaman);
+      detailPeminjaman.status = 1;
+      listPeminjaman[listPeminjaman.indexWhere((element) =>
+      element.id == detailPeminjaman.id)] = detailPeminjaman;
+      notifyListeners();
+      return right(true);
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
+  Future<Either<String, bool>> doKonfirmasiPengembalian() async {
+    try {
       await _adminService.konfirmasiPengembalian(detailPeminjaman);
       detailPeminjaman.status = 3;
-      listPeminjaman[listPeminjaman.indexWhere((element) => element.id == detailPeminjaman.id)] = detailPeminjaman;
+      listPeminjaman[listPeminjaman.indexWhere((element) =>
+      element.id == detailPeminjaman.id)] = detailPeminjaman;
       notifyListeners();
       return right(true);
-    }catch(e){
+    } catch (e) {
       return left(e.toString());
     }
+  }
+
+   Future<void> searchPeminjamanById(String nomorPeminjaman)async{
+    searchPeminjaman = null;
+    notifyListeners();
+    searchPeminjaman = await listPeminjaman.firstWhere((element) => element.id==nomorPeminjaman);
+    notifyListeners();
   }
 
 }

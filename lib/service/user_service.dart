@@ -18,6 +18,7 @@ class UserService {
         'tempatLahir': user.tempatLahir,
         'tanggalLahir': user.tanggalLahir,
         'nomorIdentitas': user.nomorIdentitas,
+        'isOrder': user.isOrder,
       });
     } catch (e) {
       rethrow;
@@ -42,6 +43,7 @@ class UserService {
          nomorIdentitas: snapshot['nomorIdentitas'],
          tanggalLahir: date,
          tempatLahir: snapshot['tempatLahir'],
+         isOrder: snapshot['isOrder'],
       );
     } catch (e) {
       rethrow;

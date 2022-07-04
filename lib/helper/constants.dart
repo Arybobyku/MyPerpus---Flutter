@@ -16,7 +16,7 @@ String parseDate(String dateString) {
 String checkStatus(int status){
   switch(status){
     case 0:
-      return "Menunggu Konfirmasi";
+      return "Booking";
     case 1:
       return "Pengambilan";
     case 2:

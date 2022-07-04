@@ -84,17 +84,17 @@ class _AdminDetailPageState extends State<AdminDetailPage> {
                     ),
                   ),
                 ),
-                if(valueAdmin.detailPeminjaman.status==0)
-                ButtonRounded(
-                  text: "Konfirmasi Peminjaman",
-                  onPressed: () => doKonfirmasiPeminjaman(context),
-                ),
 
-                if(valueAdmin.detailPeminjaman.status==1)
+                if(valueAdmin.detailPeminjaman.status==0)
                   ButtonRounded(
-                    text: "Konfirmasi Pengambilan",
+                    text: "Konfirmasi Pengambilan Buku",
                     onPressed: () => doKonfirmasiPengambilan(context),
                   ),
+                if(valueAdmin.detailPeminjaman.status==1)
+                ButtonRounded(
+                  text: "Konfirmasi Peminjaman Admin",
+                  onPressed: () => doKonfirmasiPeminjaman(context),
+                ),
                 if(valueAdmin.detailPeminjaman.status==2)
                   ButtonRounded(
                     text: "Konfirmasi Pengembalian",

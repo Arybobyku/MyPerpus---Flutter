@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:my_perpus/helper/color_palette.dart';
+import 'package:my_perpus/provider/auth.dart';
 import 'package:my_perpus/provider/buku.dart';
 import 'package:my_perpus/provider/peminjaman.dart';
 import 'package:my_perpus/ui/widget/button_rounded.dart';
@@ -16,8 +17,8 @@ class UserDetailBukuPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Consumer2<BukuProvider, PeminjamanProvider>(
-            builder: (context, valueBuku, valuePeminjaman, _) {
+        body: Consumer3<BukuProvider, PeminjamanProvider,AuthProvider>(
+            builder: (context, valueBuku, valuePeminjaman,valuAuth, _) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
@@ -77,6 +78,7 @@ class UserDetailBukuPage extends StatelessWidget {
                     ),
                   ),
                 ),
+                if(!valuAuth.user.isOrder)
                 if(valueBuku.bukuDetail!.isAvailable!)
                 if (!valuePeminjaman.keranjang.any((element) => element.id==valueBuku.bukuDetail!.id))
                   ButtonRounded(

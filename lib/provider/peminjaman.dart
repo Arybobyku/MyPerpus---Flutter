@@ -27,6 +27,18 @@ class PeminjamanProvider extends ChangeNotifier{
     }
   }
 
+  Future<Either<String,PeminjamanModel>> perpanjangPeminjaman(PeminjamanModel peminjamanModel)async{
+    try{
+      var result = await _peminjamanService.perpanjangPeminjaman(peminjamanModel);
+      riwayatSaya[riwayatSaya.indexWhere((element) =>
+      element.id == peminjamanModel.id)] = peminjamanModel;
+      notifyListeners();
+      return right(result);
+    }catch(e){
+      return left(e.toString());
+    }
+  }
+
   hapusItemDalamKeranjang(String id){
     keranjang.removeWhere((element) => element.id==id);
     notifyListeners();

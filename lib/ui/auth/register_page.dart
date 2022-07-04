@@ -211,7 +211,9 @@ class _RegisterPageState extends State<RegisterPage> {
           namaLengkap: namaLengkap,
           alamat: alamat,
           provinsi: provinsi,
-          kota: kota);
+          kota: kota,
+          isOrder: false,
+      );
       var result = await Provider.of<AuthProvider>(context, listen: false)
           .doSignUp(user: user);
 
