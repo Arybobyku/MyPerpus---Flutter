@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:my_perpus/model/buku_model.dart';
 import 'package:my_perpus/model/peminjaman_model.dart';
 
 class AdminService{
@@ -63,8 +64,10 @@ class AdminService{
       });
 
       var bukuById = await _bukuReference.doc(peminjaman.bukuModel.id);
+      var bukumodel = await getBukuById(peminjaman.bukuModel.id!);
+      int stokBuku = bukumodel.stok+1;
       bukuById.update({
-        "isAvailable":true
+        "stok":stokBuku
       });
 
       var userById = await _userReference.doc(peminjaman.idUser);
@@ -74,6 +77,15 @@ class AdminService{
 
 
     }catch(e){
+      rethrow;
+    }
+  }
+
+  Future<BukuModel> getBukuById(String id) async {
+    try {
+      DocumentSnapshot snapshot = await _bukuReference.doc(id).get();
+      return BukuModel.fromjson(snapshot.data() as Map<String, dynamic> , id);
+    } catch (e) {
       rethrow;
     }
   }

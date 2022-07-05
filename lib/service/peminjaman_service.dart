@@ -35,8 +35,9 @@ class PeminjamanService {
       });
 
       var bukuById = await _bukuReference.doc(buku.id);
+      int stokBuku = buku.stok-1;
       bukuById.update({
-        "isAvailable":false
+        "stok":stokBuku
       });
 
       var userById = await _userReference.doc(_auth.currentUser!.uid);

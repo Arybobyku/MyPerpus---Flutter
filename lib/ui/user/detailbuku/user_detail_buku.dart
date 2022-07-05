@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
@@ -31,23 +32,26 @@ class UserDetailBukuPage extends StatelessWidget {
                         SizedBox(
                           height: 20,
                         ),
-                        Container(
-                          height: 300,
-                          width: double.infinity,
-                          foregroundDecoration:
-                              valueBuku.bukuDetail!.isAvailable!
-                                  ? BoxDecoration()
-                                  : BoxDecoration(
-                                      color: ColorPalette.generalSoftGrey,
-                                      backgroundBlendMode: BlendMode.saturation,
-                                    ),
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              fit: BoxFit.contain,
-                              image:
-                                  NetworkImage(valueBuku.bukuDetail!.gambar!),
+                        CachedNetworkImage(
+                          imageUrl: valueBuku.bukuDetail!.gambar!,
+                          imageBuilder: (context, imageProvider) => Container(
+                            height: 300,
+                            width: double.infinity,
+                            foregroundDecoration:
+                            valueBuku.bukuDetail!.stok>0
+                                ? BoxDecoration(
+                              image: DecorationImage(
+                                  image: imageProvider, fit: BoxFit.fitHeight),
+                            )
+                                : BoxDecoration(
+                              color: ColorPalette.generalSoftGrey,
+                              backgroundBlendMode: BlendMode.saturation,
+                              image: DecorationImage(
+                                  image: imageProvider, fit: BoxFit.cover),
                             ),
                           ),
+                          placeholder: (context, url) => CircularProgressIndicator(),
+                          errorWidget: (context, url, error) => Icon(Icons.error),
                         ),
                         SizedBox(
                           height: 20,
@@ -74,12 +78,16 @@ class UserDetailBukuPage extends StatelessWidget {
                             title: 'Tahun Terbit',
                             value: valueBuku.bukuDetail!.tahunTerbit),
                         SizedBox(height: 15),
+                        VerticalTitleValue(
+                            title: 'Stok Buku',
+                            value: valueBuku.bukuDetail!.stok.toString()),
+                        SizedBox(height: 15),
                       ],
                     ),
                   ),
                 ),
                 if(!valuAuth.user.isOrder)
-                if(valueBuku.bukuDetail!.isAvailable!)
+                if(valueBuku.bukuDetail!.stok>0)
                 if (!valuePeminjaman.keranjang.any((element) => element.id==valueBuku.bukuDetail!.id))
                   ButtonRounded(
                     text: "Tambah Buku",

@@ -43,6 +43,8 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
   String? kelompokSasaran= null;
   String? lokasiKoleksiDaring= null;
 
+  int? stok= null;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -195,6 +197,14 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
                   },
                   secureText: false,
                 ),
+                InputFieldRounded(
+                  hint: "Stok Buku",
+                  keyboardType: TextInputType.number,
+                  onChange: (val) {
+                    stok = int.parse(val);
+                  },
+                  secureText: false,
+                ),
                 imageCoverFile != null
                     ? Container(
                         margin: EdgeInsets.only(top: 15, bottom: 30),
@@ -241,6 +251,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
   doTambahBuku() async {
     if (judul != null &&
         anakJudul != null &&
+        stok != null &&
         pengarang != null &&
         pengarangTambahan != null &&
         tempatTerbit != null &&
@@ -278,7 +289,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
         bentukKaryaTulis: bentukKaryaTulis!,
         kelompokSasaran: kelompokSasaran!,
         lokasiKoleksiDaring: lokasiKoleksiDaring!,
-        isAvailable: true,
+        stok: stok!,
       );
 
       EasyLoading.show(status: "Loading");

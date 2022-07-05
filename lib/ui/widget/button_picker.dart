@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:my_perpus/helper/color_palette.dart';
 
 class ButtonPicker extends StatelessWidget {
-  const ButtonPicker({Key? key,this.onTap}) : super(key: key);
+  const ButtonPicker({Key? key,this.onTap, this.title = "Cover"}) : super(key: key);
   final Function()? onTap;
+  final String title;
   @override
   Widget build(BuildContext context) {
     return TextButton(
@@ -17,7 +18,7 @@ class ButtonPicker extends StatelessWidget {
               size: 35,
             ),
             Text(
-              "Cover",
+              this.title,
               style: TextStyle(
                   color: ColorPalette.generalPrimaryColor, fontSize: 20),
             ),
