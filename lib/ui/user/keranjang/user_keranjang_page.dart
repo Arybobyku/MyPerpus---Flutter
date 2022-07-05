@@ -153,8 +153,8 @@ class _UserKeranjangPageState extends State<UserKeranjangPage> {
         Alert(
           context: context,
           type: AlertType.success,
-          title: "Sukses melakukan peminjaman",
-          desc: "Menunggu konfirmasi dari Admin",
+          title: "Sukses",
+          desc: "Menunggu pengambilan buku dari pustakawan",
           buttons: [
             DialogButton(
               child: Text(

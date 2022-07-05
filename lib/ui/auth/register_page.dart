@@ -323,6 +323,7 @@ class _RegisterPageState extends State<RegisterPage> {
         password != null) {
       EasyLoading.show(status: "Loading...");
       UserModel user = UserModel(
+        uuid: "",
         tempatLahir: tempatLahir,
         email: email,
         password: password,
@@ -339,7 +340,8 @@ class _RegisterPageState extends State<RegisterPage> {
         rt: rt??"-",
         rw: rw??"-",
         statusPerkawinan: statusPerkawinan,
-        agama: agama
+        agama: agama,
+        isValid: false,
       );
       var result = await Provider.of<AuthProvider>(context, listen: false)
           .doSignUp(user: user,userProfile: photoProfile);

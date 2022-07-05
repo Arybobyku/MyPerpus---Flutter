@@ -21,8 +21,9 @@ class AuthService {
 
       //NOTE: Insert to User Model
       //NOTE: Register To FireStore
-      await UserService().setUser(user,photoProfile);
-      return user;
+     var userService =  await UserService().setUser(user,photoProfile);
+     user = userService;
+     return user;
     } catch (e) {
       rethrow;
     }

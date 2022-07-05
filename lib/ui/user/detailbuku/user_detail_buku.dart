@@ -18,8 +18,8 @@ class UserDetailBukuPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Consumer3<BukuProvider, PeminjamanProvider,AuthProvider>(
-            builder: (context, valueBuku, valuePeminjaman,valuAuth, _) {
+        body: Consumer3<BukuProvider, PeminjamanProvider, AuthProvider>(
+            builder: (context, valueBuku, valuePeminjaman, valuAuth, _) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
@@ -37,21 +37,24 @@ class UserDetailBukuPage extends StatelessWidget {
                           imageBuilder: (context, imageProvider) => Container(
                             height: 300,
                             width: double.infinity,
-                            foregroundDecoration:
-                            valueBuku.bukuDetail!.stok>0
+                            foregroundDecoration: valueBuku.bukuDetail!.stok > 0
                                 ? BoxDecoration(
-                              image: DecorationImage(
-                                  image: imageProvider, fit: BoxFit.fitHeight),
-                            )
+                                    image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.fitHeight),
+                                  )
                                 : BoxDecoration(
-                              color: ColorPalette.generalSoftGrey,
-                              backgroundBlendMode: BlendMode.saturation,
-                              image: DecorationImage(
-                                  image: imageProvider, fit: BoxFit.cover),
-                            ),
+                                    color: ColorPalette.generalSoftGrey,
+                                    backgroundBlendMode: BlendMode.saturation,
+                                    image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover),
+                                  ),
                           ),
-                          placeholder: (context, url) => CircularProgressIndicator(),
-                          errorWidget: (context, url, error) => Icon(Icons.error),
+                          placeholder: (context, url) =>
+                              CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
                         ),
                         SizedBox(
                           height: 20,
@@ -86,17 +89,21 @@ class UserDetailBukuPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                if(!valuAuth.user.isOrder)
-                if(valueBuku.bukuDetail!.stok>0)
-                if (!valuePeminjaman.keranjang.any((element) => element.id==valueBuku.bukuDetail!.id))
-                  ButtonRounded(
-                    text: "Tambah Buku",
-                    onPressed: () {
-                      Provider.of<PeminjamanProvider>(context,listen: false)
-                          .tambahKeKeranjang(valueBuku.bukuDetail!);
-                      Get.back();
-                    },
-                  )
+                if (valuePeminjaman.riwayatSaya
+                    .any((element) => element.status > 3) ||valuePeminjaman.riwayatSaya.isEmpty)
+                  if (valuAuth.user.isValid)
+                    if (valueBuku.bukuDetail!.stok > 0)
+                      if (!valuePeminjaman.keranjang.any(
+                          (element) => element.id == valueBuku.bukuDetail!.id))
+                        ButtonRounded(
+                          text: "Tambah Buku",
+                          onPressed: () {
+                            Provider.of<PeminjamanProvider>(context,
+                                    listen: false)
+                                .tambahKeKeranjang(valueBuku.bukuDetail!);
+                            Get.back();
+                          },
+                        )
               ],
             ),
           );

@@ -50,14 +50,35 @@ class UserProfilePage extends StatelessWidget {
                         SizedBox(height: 30),
                         Row(
                           children: [
-                            SizedBox(width: 5),
-                            Text(
-                              "ID",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  SizedBox(width: 5),
+                                  Text(
+                                    "ID",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold, fontSize: 18),
+                                  ),
+                                  SizedBox(width: 10),
+                                  Text(valueAuth.user.uuid)
+                                ],
+                              ),
                             ),
-                            SizedBox(width: 10),
-                            Text(valueAuth.user.id!)
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 8),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: valueAuth.user.isValid
+                                      ? ColorPalette.generalSoftGreen
+                                      : ColorPalette.generalSoftRed),
+                              child: Text(
+                                valueAuth.user.isValid
+                                    ? "Tervalidasi"
+                                    : "Belum Tervalidasi",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            )
                           ],
                         ),
                         SizedBox(height: 10),

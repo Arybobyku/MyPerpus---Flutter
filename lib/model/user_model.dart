@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'dart:ffi';
+
 class UserModel {
   String? id;
-  String? uuid;
+  String uuid;
   int? role;
   String? photoProfile;
   late String password;
@@ -22,10 +24,11 @@ class UserModel {
   String? rw = null;
   late String statusPerkawinan;
   late String agama;
+  late bool isValid;
 
   UserModel({
     this.id,
-    this.uuid,
+    required this.uuid,
     this.role,
     this.photoProfile,
     required this.kota,
@@ -45,6 +48,7 @@ class UserModel {
     this.rw,
     required this.statusPerkawinan,
     required this.agama,
+    required this.isValid,
   });
 
   factory UserModel.fromjson(Map<String, dynamic> json, String id) {
@@ -70,6 +74,35 @@ class UserModel {
       rw: json['rw'],
       statusPerkawinan: json['statusPerkawinan'],
       agama: json['agama'],
+      isValid: json['isValid'],
+    );
+  }
+
+  factory UserModel.fromjsonWithTimeStamp(Map<String, dynamic> json, String id) {
+    var jsonTglLahir = json['tanggalLahir'];
+    return UserModel(
+      id: id,
+      uuid: json['uuid'],
+      role: json['role'],
+      photoProfile: json['photoProfile'],
+      kota: json['kota'],
+      provinsi: json['provinsi'],
+      alamat: json['alamat'],
+      tempatLahir: json['tempatLahir'],
+      namaLengkap: json['namaLengkap'],
+      tanggalLahir: jsonTglLahir.toDate(),
+      nomorIdentitas: json['nomorIdentitas'],
+      password: '',
+      email: json['email'],
+      jenisIdentitas: json['jenisIdentitas'],
+      isOrder: json['isOrder'],
+      kecamatan: json['kecamatan'],
+      kelurahan: json['kelurahan'],
+      rt: json['rt'],
+      rw: json['rw'],
+      statusPerkawinan: json['statusPerkawinan'],
+      agama: json['agama'],
+      isValid: json['isValid'],
     );
   }
 
@@ -96,11 +129,14 @@ class UserModel {
       rw: json['rw'],
       statusPerkawinan: json['statusPerkawinan'],
       agama: json['agama'],
+      isValid: json['isValid'],
     );
   }
 
   Map<String, dynamic> toJson() => {
     'id': id,
+    'uuid': uuid,
+    'isOrder': isOrder,
     'role': role,
     'photoProfile': photoProfile,
     'kota': kota,
@@ -112,13 +148,13 @@ class UserModel {
     'nomorIdentitas': nomorIdentitas,
     'email': email,
     'jenisIdentitas': jenisIdentitas,
-    'isOrder': isOrder,
     'kecamatan': kecamatan,
     'kelurahan': kelurahan,
     'rt': rt,
     'rw': rw,
     'statusPerkawinan': statusPerkawinan,
     'agama': agama,
+    'isValid': isValid,
   };
 
 }

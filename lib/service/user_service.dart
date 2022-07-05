@@ -32,13 +32,14 @@ class UserService {
     }
   }
 
-  Future<void> setUser(UserModel user,File photoProfile) async {
+  Future<UserModel> setUser(UserModel user,File photoProfile) async {
 
     String path = await simpanGambar(photoProfile);
     Random random = new Random();
     int randomNumber = random.nextInt(100);
     String code = "${randomNumber}${DateTime.now().millisecond}${DateTime.now().second}${DateTime.now().minute}${DateTime.now().month}${DateTime.now().year}";
-
+    user.photoProfile = path;
+    user.uuid = code;
     try {
       _userReference.doc(user.id).set({
         'email': user.email,
@@ -60,7 +61,9 @@ class UserService {
         'rw': user.rw,
         'statusPerkawinan': user.statusPerkawinan,
         'agama': user.agama,
+        'isValid': false,
       });
+      return user;
     } catch (e) {
       rethrow;
     }
@@ -93,6 +96,7 @@ class UserService {
         rw: snapshot['rw'],
         statusPerkawinan: snapshot['statusPerkawinan'],
         agama: snapshot['agama'],
+        isValid: snapshot['isValid'],
       );
     } catch (e) {
       rethrow;

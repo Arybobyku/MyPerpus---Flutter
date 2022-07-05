@@ -38,7 +38,7 @@ class _PustakawanPageState extends State<PustakawanPage> {
           appBar: AppBar(
             backgroundColor: ColorPalette.generalBackgroundColor,
             title: Text(
-              "Admin",
+              "Pustakawan",
               style: TextStyle(color: ColorPalette.generalPrimaryColor),
             ),
             actions: [

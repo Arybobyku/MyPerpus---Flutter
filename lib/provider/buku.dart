@@ -41,6 +41,7 @@ class BukuProvider extends ChangeNotifier {
       listBuku[listBuku.indexWhere((element) => element.id==buku.id)] = buku;
       notifyListeners();
     });
+    notifyListeners();
   }
 
   clickBukuDetail(BukuModel bukuModel) {
