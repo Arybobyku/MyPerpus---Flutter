@@ -76,7 +76,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       jenisIdentitas = val;
                     });
                   },
-                  items: ["SIM", "KTP"],
+                  items: ["KTP", "KIA"],
                   hint: 'Jenis Identitas',
                 ),
                 SizedBox(height: 10),

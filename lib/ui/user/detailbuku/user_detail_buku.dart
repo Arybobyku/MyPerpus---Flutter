@@ -37,18 +37,17 @@ class UserDetailBukuPage extends StatelessWidget {
                           imageBuilder: (context, imageProvider) => Container(
                             height: 300,
                             width: double.infinity,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.fitHeight),
+                            ),
                             foregroundDecoration: valueBuku.bukuDetail!.stok > 0
-                                ? BoxDecoration(
-                                    image: DecorationImage(
-                                        image: imageProvider,
-                                        fit: BoxFit.fitHeight),
-                                  )
+                                ?
+                                BoxDecoration()
                                 : BoxDecoration(
                                     color: ColorPalette.generalSoftGrey,
                                     backgroundBlendMode: BlendMode.saturation,
-                                    image: DecorationImage(
-                                        image: imageProvider,
-                                        fit: BoxFit.cover),
                                   ),
                           ),
                           placeholder: (context, url) =>
@@ -89,9 +88,10 @@ class UserDetailBukuPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                if (valuePeminjaman.riwayatSaya
-                    .any((element) => element.status > 3) ||valuePeminjaman.riwayatSaya.isEmpty)
-                  if (valuAuth.user.isValid)
+                if (valuAuth.user.isValid)
+                  if (!valuePeminjaman.riwayatSaya
+                          .any((element) => element.status < 3) ||
+                      valuePeminjaman.riwayatSaya.isEmpty)
                     if (valueBuku.bukuDetail!.stok > 0)
                       if (!valuePeminjaman.keranjang.any(
                           (element) => element.id == valueBuku.bukuDetail!.id))

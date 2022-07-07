@@ -6,6 +6,7 @@ class Constants{
   static const String userName = 'userName';
   static const String role = 'role';
   static const String userModel = 'userModel';
+  static const String notifikasiPengembalian = 'notifikasiPengembalian';
 }
 
 String parseDate(String dateString) {

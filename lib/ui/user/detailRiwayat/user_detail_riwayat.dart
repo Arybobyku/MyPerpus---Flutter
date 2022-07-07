@@ -113,7 +113,7 @@ class UserDetailRiwayat extends StatelessWidget {
         context: context,
         type: AlertType.success,
         title: "Sukses",
-        desc: "Sukses konfirmasi peminjaman",
+        desc: "Sukses perpanjang peminjaman",
         buttons: [
           DialogButton(
             child: Text(

@@ -148,7 +148,6 @@ class _UserKeranjangPageState extends State<UserKeranjangPage> {
         ).show();
       },
           (r)async {
-        await Provider.of<BukuProvider>(context,listen:false).updateBukuStatus(r);
         EasyLoading.dismiss();
         Alert(
           context: context,

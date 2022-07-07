@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:my_perpus/helper/constants.dart';
+import 'package:my_perpus/local_storage_service.dart';
 import 'package:my_perpus/model/buku_model.dart';
 import 'package:my_perpus/model/peminjaman_model.dart';
 import 'package:my_perpus/model/user_model.dart';
 import 'package:my_perpus/service/notification.dart';
 import 'package:my_perpus/service/peminjaman_service.dart';
+import 'package:my_perpus/setup_locator.dart';
 
 import '../service/riwayat_service.dart';
 
@@ -19,6 +21,8 @@ class PeminjamanProvider extends ChangeNotifier{
   late PeminjamanModel detailRiwayat;
 
   List<PeminjamanModel> deadlinePengembalian = [];
+
+  var storageService = locator<LocalStorageService>();
 
   tambahKeKeranjang(BukuModel model){
     if(keranjang.length<=3){
@@ -70,7 +74,8 @@ class PeminjamanProvider extends ChangeNotifier{
       riwayatSaya = result;
 
       riwayatSaya.forEach((element) {
-        if(getDurationDifferenceInt(element.tanggalPeminjaman!, element.tanggalPengembalian!)<2 && element.status==2){
+        if(getDurationDifferenceInt(DateTime.now(), element.tanggalPengembalian!)<2 && element.status==2){
+          storageService.saveToPref(Constants.userModel, element.bukuModel.judul);
           showNotification("Buku ${element.bukuModel.judul} harus segera dikembalikan sebelum tanggal ${parseDate(element.tanggalPengembalian.toString())}");
         }
       });
