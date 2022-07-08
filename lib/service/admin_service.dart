@@ -38,10 +38,10 @@ class AdminService{
           "status":2
         });
 
-        var bukuById = await _bukuReference.doc(peminjaman.bukuModel.id);
-        bukuById.update({
-          "isAvailable":false
-        });
+        // var bukuById = await _bukuReference.doc(peminjaman.bukuModel.id);
+        // bukuById.update({
+        //   "isAvailable":false
+        // });
       }catch(e){
         rethrow;
       }
@@ -65,12 +65,16 @@ class AdminService{
         "status":3
       });
 
-      var bukuById = await _bukuReference.doc(peminjaman.bukuModel.id);
-      var bukumodel = await getBukuById(peminjaman.bukuModel.id!);
-      int stokBuku = bukumodel.stok+1;
-      bukuById.update({
-        "stok":stokBuku
+      peminjaman.bukuModel.forEach((element) async{
+        var bukuById = await _bukuReference.doc(element.id);
+        var bukumodel = await getBukuById(element.id!);
+        int stokBuku = bukumodel.stok+1;
+        bukuById.update({
+          "stok":stokBuku
+        });
+
       });
+
 
       var userById = await _userReference.doc(peminjaman.idUser);
       userById.update({

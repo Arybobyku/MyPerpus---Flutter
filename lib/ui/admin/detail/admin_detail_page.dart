@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:my_perpus/helper/color_palette.dart';
 import 'package:my_perpus/helper/constants.dart';
 import 'package:my_perpus/provider/admin.dart';
+import 'package:my_perpus/routes.dart';
 import 'package:my_perpus/ui/widget/button_rounded.dart';
 import 'package:my_perpus/ui/widget/horizontal_book.dart';
 import 'package:my_perpus/ui/widget/status_container.dart';
@@ -34,9 +35,23 @@ class _AdminDetailPageState extends State<AdminDetailPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 20),
-                        HorizontalBook(
-                            bukuModel: valueAdmin.detailPeminjaman.bukuModel),
+                        ListView.builder(
+                          shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount:valueAdmin.detailPeminjaman.bukuModel.length,
+                            itemBuilder: (context,index){
+                         return Padding(
+                           padding: const EdgeInsets.only(top: 20),
+                           child: GestureDetector(
+                             onTap: (){
+                               Get.toNamed(Routes.detailBukuGeneral,arguments: valueAdmin.detailPeminjaman.bukuModel[index]);
+                             },
+                             child: HorizontalBook(
+                                  bukuModel: valueAdmin.detailPeminjaman.bukuModel[index]),
+                           ),
+                         );
+                        }),
+
                         SizedBox(height: 20),
                         Row(
                           children: [

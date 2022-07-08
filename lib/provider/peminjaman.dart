@@ -55,10 +55,9 @@ class PeminjamanProvider extends ChangeNotifier{
   Future<Either<String,List<BukuModel>>> doPeminjaman(UserModel user, DateTime tanggalPeminjman)async{
     try{
       List<BukuModel> buku = [];
-      keranjang.forEach((element)async {
-        await _peminjamanService.setPeminjaman(element,user,tanggalPeminjman);
-        buku.add(element);
-      });
+
+      await _peminjamanService.setPeminjaman(keranjang,user,tanggalPeminjman);
+      buku = keranjang;
       keranjang = [];
       getRiwayatSaya();
       notifyListeners();
@@ -75,8 +74,8 @@ class PeminjamanProvider extends ChangeNotifier{
 
       riwayatSaya.forEach((element) {
         if(getDurationDifferenceInt(DateTime.now(), element.tanggalPengembalian!)<2 && element.status==2){
-          storageService.saveToPref(Constants.userModel, element.bukuModel.judul);
-          showNotification("Buku ${element.bukuModel.judul} harus segera dikembalikan sebelum tanggal ${parseDate(element.tanggalPengembalian.toString())}");
+          storageService.saveToPref(Constants.userModel, element.bukuModel[0].judul);
+          showNotification("Buku ${element.bukuModel[0].judul} harus segera dikembalikan sebelum tanggal ${parseDate(element.tanggalPengembalian.toString())}");
         }
       });
       notifyListeners();

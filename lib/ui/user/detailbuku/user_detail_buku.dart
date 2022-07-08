@@ -65,8 +65,24 @@ class UserDetailBukuPage extends StatelessWidget {
                         ),
                         SizedBox(height: 20),
                         VerticalTitleValue(
+                            title: 'Anak Judul',
+                            value: valueBuku.bukuDetail!.anakJudul),
+                        SizedBox(height: 15),
+                        VerticalTitleValue(
+                            title: 'Keterangan Ilustasi',
+                            value:  valueBuku.bukuDetail!.keteranganIlustrasi),
+                        SizedBox(height: 15),
+                        VerticalTitleValue(
+                            title: 'Subjek',
+                            value:  valueBuku.bukuDetail!.subjek),
+                        SizedBox(height: 15),
+                        VerticalTitleValue(
                             title: 'Pengarang',
                             value: valueBuku.bukuDetail!.pengarang),
+                        SizedBox(height: 15),
+                        VerticalTitleValue(
+                            title: 'Pengarang Tambahan',
+                            value: valueBuku.bukuDetail!.pengarangTambahan??"-"),
                         SizedBox(height: 15),
                         VerticalTitleValue(
                             title: 'Penerbit',
@@ -78,7 +94,39 @@ class UserDetailBukuPage extends StatelessWidget {
                         SizedBox(height: 15),
                         VerticalTitleValue(
                             title: 'Tahun Terbit',
-                            value: valueBuku.bukuDetail!.tahunTerbit),
+                            value:  valueBuku.bukuDetail!.tahunTerbit),
+                        SizedBox(height: 15),
+                        VerticalTitleValue(
+                            title: 'Tempat Terbit',
+                            value:  valueBuku.bukuDetail!.tempatTerbit),
+                        SizedBox(height: 15),
+                        VerticalTitleValue(
+                            title: 'Bentuk Karya Tulis',
+                            value:  valueBuku.bukuDetail!.bentukKaryaTulis),
+                        SizedBox(height: 15),
+                        VerticalTitleValue(
+                            title: 'ISBN',
+                            value:  valueBuku.bukuDetail!.ISBN),
+                        SizedBox(height: 15),
+                        VerticalTitleValue(
+                            title: 'Bahasa',
+                            value:  valueBuku.bukuDetail!.bahasa),
+                        SizedBox(height: 15),
+                        VerticalTitleValue(
+                            title: 'Dimensi',
+                            value:  valueBuku.bukuDetail!.dimensi),
+                        SizedBox(height: 15),
+                        VerticalTitleValue(
+                            title: 'Edisi',
+                            value:  valueBuku.bukuDetail!.edisi),
+                        SizedBox(height: 15),
+                        VerticalTitleValue(
+                            title: 'Jumlah Halaman',
+                            value:  valueBuku.bukuDetail!.jumlahHalaman.toString()),
+                        SizedBox(height: 15),
+                        VerticalTitleValue(
+                            title: 'Kelompok Sasaran',
+                            value:  valueBuku.bukuDetail!.kelompokSasaran),
                         SizedBox(height: 15),
                         VerticalTitleValue(
                             title: 'Stok Buku',

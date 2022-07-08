@@ -2,12 +2,10 @@ import 'dart:io';
 
 import 'package:country_state_city_picker/country_state_city_picker.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:my_perpus/helper/color_palette.dart';
 import 'package:my_perpus/helper/constants.dart';
 import 'package:my_perpus/model/user_model.dart';

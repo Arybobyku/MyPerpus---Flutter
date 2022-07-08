@@ -5,6 +5,7 @@ import 'package:my_perpus/helper/color_palette.dart';
 import 'package:my_perpus/helper/constants.dart';
 import 'package:my_perpus/model/peminjaman_model.dart';
 import 'package:my_perpus/provider/peminjaman.dart';
+import 'package:my_perpus/routes.dart';
 import 'package:my_perpus/ui/widget/button_rounded.dart';
 import 'package:my_perpus/ui/widget/horizontal_book.dart';
 import 'package:my_perpus/ui/widget/status_container.dart';
@@ -29,18 +30,32 @@ class UserDetailRiwayat extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 20),
-                        HorizontalBook(
-                            bukuModel: peminjaman.detailRiwayat.bukuModel),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: peminjaman.detailRiwayat.bukuModel.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: GestureDetector(
+                                onTap: (){
+                                  Get.toNamed(Routes.detailBukuGeneral,arguments:peminjaman.detailRiwayat.bukuModel[index]);
+                                },
+                                child: HorizontalBook(
+                                    bukuModel:
+                                        peminjaman.detailRiwayat.bukuModel[index]),
+                              ),
+                            );
+                          },
+                        ),
                         SizedBox(height: 20),
                         Row(
                           children: [
                             Expanded(
-                              child: VerticalTitleValue(
-                                  title: 'Tanggal Peminjaman',
-                                  value: parseDate(peminjaman
-                                      .detailRiwayat.tanggalPeminjaman
-                                      .toString())),
+                              child:
+                              VerticalTitleValue(
+                                  title: 'ID Peminjaman',
+                                  value: peminjaman.detailRiwayat.id ?? "-"),
                             ),
                             StatusContainer(
                                 status: peminjaman.detailRiwayat.status)
@@ -54,20 +69,25 @@ class UserDetailRiwayat extends StatelessWidget {
                                 .toString())),
                         SizedBox(height: 20),
                         VerticalTitleValue(
-                            title: 'ID Peminjaman',
-                            value: peminjaman.detailRiwayat.id ?? "-"),
+                            title: 'Tanggal Peminjaman',
+                            value: parseDate(peminjaman
+                                .detailRiwayat.tanggalPeminjaman
+                                .toString())),
                         SizedBox(height: 20),
-                        VerticalTitleValue(
-                            title: 'Hari Pengembalian',
-                            value: getDurationDifference(
-                                DateTime.now(),
-                                peminjaman.detailRiwayat.tanggalPengembalian!)),
+                        if (peminjaman.detailRiwayat.status == 2)
+                          VerticalTitleValue(
+                              title: 'Hari Pengembalian',
+                              value: getDurationDifference(
+                                  DateTime.now(),
+                                  peminjaman
+                                      .detailRiwayat.tanggalPengembalian!)),
                       ],
                     ),
                   ),
                 ),
               ),
-              if (peminjaman.detailRiwayat.perpanjang < 1 && peminjaman.detailRiwayat.status==2)
+              if (peminjaman.detailRiwayat.perpanjang < 1 &&
+                  peminjaman.detailRiwayat.status == 2)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: ButtonRounded(
