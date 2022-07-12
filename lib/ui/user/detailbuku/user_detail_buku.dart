@@ -141,6 +141,7 @@ class UserDetailBukuPage extends StatelessWidget {
                           .any((element) => element.status < 3) ||
                       valuePeminjaman.riwayatSaya.isEmpty)
                     if (valueBuku.bukuDetail!.stok > 0)
+                      if(valuePeminjaman.keranjang.length<3)
                       if (!valuePeminjaman.keranjang.any(
                           (element) => element.id == valueBuku.bukuDetail!.id))
                         ButtonRounded(

@@ -25,7 +25,7 @@ class PeminjamanProvider extends ChangeNotifier{
   var storageService = locator<LocalStorageService>();
 
   tambahKeKeranjang(BukuModel model){
-    if(keranjang.length<=3){
+    if(keranjang.length<3){
       keranjang.add(model);
       notifyListeners();
     }
