@@ -42,9 +42,9 @@ class StatusPeminjaman extends StatelessWidget {
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 5),
-          if (peminjamanModel.status < 3)
+          if (peminjamanModel.status ==2)
             Text(
-              getDurationDifference(peminjamanModel.tanggalPeminjaman!,
+              getDurationDifference(DateTime.now(),
                   peminjamanModel.tanggalPengembalian!),
               style: TextStyle(
                   fontSize: 16,

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:my_perpus/model/buku_model.dart';
 
@@ -10,16 +11,19 @@ class HorizontalBook extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
-          height: 200,
-          width: 150,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: NetworkImage(bukuModel.gambar!),
+        CachedNetworkImage(
+          imageUrl: bukuModel.gambar!,
+          imageBuilder: (context, imageProvider) => Container(
+            height: 200,
+            width: 150,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              image: DecorationImage(
+                  image: imageProvider, fit: BoxFit.cover),
             ),
           ),
+          placeholder: (context, url) => CircularProgressIndicator(),
+          errorWidget: (context, url, error) => Icon(Icons.error),
         ),
         SizedBox(width: 20),
         Expanded(

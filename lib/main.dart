@@ -5,7 +5,9 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:my_perpus/helper/color_palette.dart';
+import 'package:my_perpus/helper/constants.dart';
 import 'package:my_perpus/injection.dart';
+import 'package:my_perpus/local_storage_service.dart';
 import 'package:my_perpus/provider/admin.dart';
 import 'package:my_perpus/provider/auth.dart';
 import 'package:my_perpus/provider/buku.dart';
@@ -90,13 +92,17 @@ class MyApp extends StatelessWidget {
 }
 
 void callbackDispatcher() {
-  Workmanager().executeTask((task, inputData) async{
-    await NotificationService.flutterLocalNotificationsPlugin.show(
-        12345,
-        "Pengembalian Buku",
-        "Ini Dari work manager",
-        platformChannelSpecifics,
-        payload: 'data');
-    return Future.value(true);
-  });
+  var storageService = locator<LocalStorageService>();
+  var bookName =storageService.getStringFromPref(Constants.notifikasiPengembalian);
+  if(bookName!=null){
+    Workmanager().executeTask((task, inputData) async{
+      await NotificationService.flutterLocalNotificationsPlugin.show(
+          12345,
+          "Pengembalian Buku",
+          "Harap mengembalikan buku $bookName",
+          platformChannelSpecifics,);
+      return Future.value(true);
+    });
+  }
+
 }

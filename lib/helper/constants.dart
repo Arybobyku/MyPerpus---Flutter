@@ -6,6 +6,7 @@ class Constants{
   static const String userName = 'userName';
   static const String role = 'role';
   static const String userModel = 'userModel';
+  static const String notifikasiPengembalian = 'notifikasiPengembalian';
 }
 
 String parseDate(String dateString) {
@@ -16,7 +17,7 @@ String parseDate(String dateString) {
 String checkStatus(int status){
   switch(status){
     case 0:
-      return "Menunggu Konfirmasi";
+      return "Booking";
     case 1:
       return "Pengambilan";
     case 2:

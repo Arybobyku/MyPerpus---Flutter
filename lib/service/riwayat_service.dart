@@ -14,12 +14,14 @@ class RiwayatService{
   Future<List<PeminjamanModel>> getMyPeinjaman()async{
     try{
       var myId = _auth.currentUser!.uid;
-      QuerySnapshot result =await _peminjamanReference.where("idUser",isEqualTo: myId).get();
+      QuerySnapshot result = await _peminjamanReference.where("idUser",isEqualTo: myId).get();
+      print(result.size);
       List<PeminjamanModel> listPeminjaman = result.docs.map((e){
         return PeminjamanModel.fromjson(e.data() as Map<String, dynamic>, e.id);
       }).toList();
       return listPeminjaman;
     }catch(e){
+      print(e.toString());
       rethrow;
     }
   }

@@ -75,8 +75,9 @@ class _UserKeranjangPageState extends State<UserKeranjangPage> {
                   },
                 ),
               ),
+        if (valuePeminjaman.keranjang.isNotEmpty)
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
                 child: GestureDetector(
                   onTap: () {
                     DatePicker.showDatePicker(
@@ -123,6 +124,7 @@ class _UserKeranjangPageState extends State<UserKeranjangPage> {
     var user = Provider.of<AuthProvider>(context,listen: false).user;
     var result = await Provider.of<PeminjamanProvider>(context, listen: false)
         .doPeminjaman(user,tanggalPeminjaman!);
+    await Provider.of<AuthProvider>(context,listen: false).userIsOrderBook();
 
     result.fold(
           (l) {
@@ -146,13 +148,12 @@ class _UserKeranjangPageState extends State<UserKeranjangPage> {
         ).show();
       },
           (r)async {
-        await Provider.of<BukuProvider>(context,listen:false).updateBukuStatus(r);
         EasyLoading.dismiss();
         Alert(
           context: context,
           type: AlertType.success,
-          title: "Sukses melakukan peminjaman",
-          desc: "Menunggu konfirmasi dari Admin",
+          title: "Sukses",
+          desc: "Menunggu pengambilan buku dari pustakawan",
           buttons: [
             DialogButton(
               child: Text(

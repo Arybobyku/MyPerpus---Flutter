@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:my_perpus/model/user_model.dart';
 
@@ -7,7 +9,7 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
 
-  Future<UserModel> signUp(UserModel user) async {
+  Future<UserModel> signUp(UserModel user,File photoProfile) async {
     try {
       //NOTE: Create User to Firebase
       UserCredential userCredential =
@@ -19,8 +21,9 @@ class AuthService {
 
       //NOTE: Insert to User Model
       //NOTE: Register To FireStore
-      await UserService().setUser(user);
-      return user;
+     var userService =  await UserService().setUser(user,photoProfile);
+     user = userService;
+     return user;
     } catch (e) {
       rethrow;
     }

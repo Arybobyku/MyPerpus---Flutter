@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:my_perpus/helper/color_palette.dart';
 import 'package:my_perpus/model/buku_model.dart';
@@ -22,22 +23,25 @@ class BookContainer extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              height: imageHeight,
-              width: 150,
-              foregroundDecoration: bukuModel.isAvailable!
-                  ? BoxDecoration()
-                  : BoxDecoration(
-                      color: ColorPalette.generalSoftGrey,
-                      backgroundBlendMode: BlendMode.saturation,
-                    ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(bukuModel.gambar!),
+            CachedNetworkImage(
+              imageUrl: bukuModel.gambar!,
+              imageBuilder: (context, imageProvider) => Container(
+                height: imageHeight,
+                width: 150,
+                foregroundDecoration: bukuModel.stok>0
+                    ? BoxDecoration()
+                    : BoxDecoration(
+                  color: ColorPalette.generalSoftGrey,
+                  backgroundBlendMode: BlendMode.saturation,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  image: DecorationImage(
+                      image: imageProvider, fit: BoxFit.cover),
                 ),
               ),
+              placeholder: (context, url) => CircularProgressIndicator(),
+              errorWidget: (context, url, error) => Icon(Icons.error),
             ),
             SizedBox(height: 10),
             Text(

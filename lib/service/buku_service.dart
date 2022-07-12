@@ -19,7 +19,7 @@ class BukuService {
 
       String fileName =
           "${DateTime.now().millisecond}-${DateTime.now().minute}-${DateTime.now().hour}-${DateTime.now().day}-${DateTime.now().month}-buku";
-      fileName = coverFile.path.split('/').last;
+      fileName += coverFile.path.split('/').last;
       var result = await ref.child(fileName).putFile(coverFile, metadata);
       result.ref.getDownloadURL();
 
@@ -54,7 +54,7 @@ class BukuService {
          'bentukKaryaTulis': bukuModel.bentukKaryaTulis,
          'kelompokSasaran': bukuModel.kelompokSasaran,
          'lokasiKoleksiDaring': bukuModel.lokasiKoleksiDaring,
-         'isAvailable': bukuModel.isAvailable
+         'stok': bukuModel.stok
         });
       }catch(e){
         rethrow;
@@ -71,6 +71,15 @@ class BukuService {
 
       return bukuFromFirebase;
     }catch(e){
+      rethrow;
+    }
+  }
+
+  Future<BukuModel> getBukuById(String id) async {
+    try {
+      DocumentSnapshot snapshot = await _bukuReference.doc(id).get();
+      return BukuModel.fromjson(snapshot.data() as Map<String, dynamic> , id);
+    } catch (e) {
       rethrow;
     }
   }

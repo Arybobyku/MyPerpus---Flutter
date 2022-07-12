@@ -1,7 +1,7 @@
 class BukuModel {
   String? id;
   String? gambar;
-  bool? isAvailable;
+  int stok;
   String judul;
   String anakJudul;
   String pengarang;
@@ -25,7 +25,7 @@ class BukuModel {
   BukuModel({
     this.id,
     this.gambar,
-    required this.isAvailable,
+    required this.stok,
     required this.judul,
     required this.anakJudul,
     required this.pengarang,
@@ -70,7 +70,7 @@ class BukuModel {
       bentukKaryaTulis: json['bentukKaryaTulis'],
       kelompokSasaran: json['kelompokSasaran'],
       lokasiKoleksiDaring: json['lokasiKoleksiDaring'],
-      isAvailable: json['isAvailable'],
+      stok: json['stok'],
     );
   }
 
@@ -97,7 +97,7 @@ class BukuModel {
       bentukKaryaTulis: json['bentukKaryaTulis'],
       kelompokSasaran: json['kelompokSasaran'],
       lokasiKoleksiDaring: json['lokasiKoleksiDaring'],
-      isAvailable: json['isAvailable'],
+      stok: json['stok'],
     );
   }
 
@@ -123,6 +123,6 @@ class BukuModel {
         'bentukKaryaTulis': bentukKaryaTulis,
         'kelompokSasaran': kelompokSasaran,
         'lokasiKoleksiDaring': lokasiKoleksiDaring,
-        'isAvailable': isAvailable
+        'stok': stok
       };
 }

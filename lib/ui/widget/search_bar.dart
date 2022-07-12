@@ -5,12 +5,14 @@ import 'package:my_perpus/ui/widget/input_field_rounded.dart';
 
 class SearchBar extends StatelessWidget {
   const SearchBar(
-      {Key? key, this.onTapSearch, this.enable = true, this.onChanged,this.onEditingCompleted})
+      {Key? key, this.onTapSearch, this.enable = true, this.onChanged,this.onEditingCompleted,this.title = "Cari Buku",this.onSubmit})
       : super(key: key);
   final Function()? onTapSearch;
   final Function()? onEditingCompleted;
   final Function(String)? onChanged;
+  final Function(String)? onSubmit;
   final bool enable;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +48,12 @@ class SearchBar extends StatelessWidget {
                 enabled: enable,
                 onChanged:onChanged,
                 onEditingComplete: onEditingCompleted,
+                onSubmitted: onSubmit,
                 decoration: InputDecoration(
                   filled: false,
                   isDense: true,
                   hoverColor: ColorPalette.generalPrimaryColor,
-                  hintText: "Cari Buku",
+                  hintText: title,
                   hintStyle: TextStyle(
                       color: ColorPalette.generalPrimaryColor
                   ),

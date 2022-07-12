@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
@@ -29,10 +30,11 @@ class AuthProvider extends ChangeNotifier{
   }
 
   Future<Either<String, bool>> doSignUp({
-    required UserModel user
+    required UserModel user,
+    required File userProfile,
   })async{
     try{
-      user = await _authService.signUp(user);
+      user = await _authService.signUp(user,userProfile);
       this.user = user;
 
       storageService.saveToPref(Constants.role, user.role);
@@ -42,6 +44,11 @@ class AuthProvider extends ChangeNotifier{
     }catch(e){
       return left(e.toString());
     }
+  }
+
+  userIsOrderBook(){
+    this.user.isOrder = true;
+    notifyListeners();
   }
 
   setUserModelFromPref(UserModel user){

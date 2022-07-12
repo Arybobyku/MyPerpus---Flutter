@@ -35,12 +35,12 @@ class BukuProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> updateBukuStatus(List<BukuModel> id)async{
+   updateBukuStatus(List<BukuModel> id)async{
     id.forEach((buku) async{
-      buku.isAvailable = false;
+      buku.stok -=1 ;
       listBuku[listBuku.indexWhere((element) => element.id==buku.id)] = buku;
+      notifyListeners();
     });
-
     notifyListeners();
   }
 

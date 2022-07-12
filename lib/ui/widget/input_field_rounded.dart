@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_perpus/helper/color_palette.dart';
 import 'package:my_perpus/helper/constants.dart';
 
 class InputFieldRounded extends StatelessWidget {
   final String hint;
   final ValueChanged<String> onChange;
-  final Icon? suffixIcon;
+  final Widget? suffixIcon;
   final bool secureText;
+  final TextInputType keyboardType;
   final String? errortext;
   final FormFieldValidator? validatorCheck;
   const InputFieldRounded(
@@ -15,6 +17,7 @@ class InputFieldRounded extends StatelessWidget {
         required this.onChange,
         this.validatorCheck,
         this.suffixIcon,
+        this.keyboardType = TextInputType.text,
         this.errortext,
         required this.secureText})
       : super(key: key);
@@ -30,6 +33,7 @@ class InputFieldRounded extends StatelessWidget {
         onChanged: onChange,
         obscureText: secureText,
         cursorColor: ColorPalette.generalPrimaryColor,
+        keyboardType: keyboardType,
         decoration: InputDecoration(
           errorText: errortext,
           filled: false,

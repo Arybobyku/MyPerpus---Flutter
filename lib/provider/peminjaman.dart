@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:my_perpus/helper/constants.dart';
+import 'package:my_perpus/local_storage_service.dart';
 import 'package:my_perpus/model/buku_model.dart';
 import 'package:my_perpus/model/peminjaman_model.dart';
 import 'package:my_perpus/model/user_model.dart';
 import 'package:my_perpus/service/notification.dart';
 import 'package:my_perpus/service/peminjaman_service.dart';
+import 'package:my_perpus/setup_locator.dart';
 
 import '../service/riwayat_service.dart';
 
@@ -20,10 +22,24 @@ class PeminjamanProvider extends ChangeNotifier{
 
   List<PeminjamanModel> deadlinePengembalian = [];
 
+  var storageService = locator<LocalStorageService>();
+
   tambahKeKeranjang(BukuModel model){
     if(keranjang.length<=3){
       keranjang.add(model);
       notifyListeners();
+    }
+  }
+
+  Future<Either<String,PeminjamanModel>> perpanjangPeminjaman(PeminjamanModel peminjamanModel)async{
+    try{
+      var result = await _peminjamanService.perpanjangPeminjaman(peminjamanModel);
+      riwayatSaya[riwayatSaya.indexWhere((element) =>
+      element.id == peminjamanModel.id)] = peminjamanModel;
+      notifyListeners();
+      return right(result);
+    }catch(e){
+      return left(e.toString());
     }
   }
 
@@ -39,10 +55,9 @@ class PeminjamanProvider extends ChangeNotifier{
   Future<Either<String,List<BukuModel>>> doPeminjaman(UserModel user, DateTime tanggalPeminjman)async{
     try{
       List<BukuModel> buku = [];
-      keranjang.forEach((element)async {
-        await _peminjamanService.setPeminjaman(element,user,tanggalPeminjman);
-        buku.add(element);
-      });
+
+      await _peminjamanService.setPeminjaman(keranjang,user,tanggalPeminjman);
+      buku = keranjang;
       keranjang = [];
       getRiwayatSaya();
       notifyListeners();
@@ -58,8 +73,9 @@ class PeminjamanProvider extends ChangeNotifier{
       riwayatSaya = result;
 
       riwayatSaya.forEach((element) {
-        if(getDurationDifferenceInt(element.tanggalPeminjaman!, element.tanggalPengembalian!)<2 && element.status==2){
-          showNotification("Buku ${element.bukuModel.judul} harus segera dikembalikan sebelum tanggal ${parseDate(element.tanggalPengembalian.toString())}");
+        if(getDurationDifferenceInt(DateTime.now(), element.tanggalPengembalian!)<2 && element.status==2){
+          storageService.saveToPref(Constants.userModel, element.bukuModel[0].judul);
+          showNotification("Buku ${element.bukuModel[0].judul} harus segera dikembalikan sebelum tanggal ${parseDate(element.tanggalPengembalian.toString())}");
         }
       });
       notifyListeners();
