@@ -24,6 +24,8 @@ String checkStatus(int status){
       return "Peminjaman";
     case 3:
       return "Selesai";
+    case 4:
+      return "Dibatalkan";
     default:
       return "-";
   }
@@ -52,6 +54,8 @@ Color backgroundStatus(int status){
       return ColorPalette.generalSoftPurple;
     case 3:
       return ColorPalette.generalSoftYellow;
+    case 4:
+      return ColorPalette.generalSoftRed;
     default:
       return ColorPalette.generalSoftYellow;
   }

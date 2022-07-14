@@ -158,7 +158,9 @@ class _AdminHomePageState extends State<AdminHomePage> {
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
 
-                      return valueAdmin.listPeminjaman[index].status==selectedIndex? GestureDetector(
+                      return valueAdmin.listPeminjaman[index].status==selectedIndex ||
+                          (selectedIndex==3 && valueAdmin.listPeminjaman[index].status==4)
+                      ? GestureDetector(
                         onTap: () {
                           Provider.of<AdminProvider>(context, listen: false)
                               .onClickDetailPeminjaman(

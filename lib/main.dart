@@ -15,7 +15,7 @@ import 'package:my_perpus/provider/peminjaman.dart';
 import 'package:my_perpus/routes.dart';
 import 'package:my_perpus/setup_locator.dart';
 import 'package:provider/provider.dart';
-import 'package:workmanager/workmanager.dart';
+// import 'package:workmanager/workmanager.dart';
 
 import 'service/notification.dart';
 
@@ -32,11 +32,11 @@ void main() async{
 
 
   setupLocator().then((value) {
-    Workmanager().initialize(
-        callbackDispatcher, // The top level function, aka callbackDispatcher
-        isInDebugMode: true // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
-    );
-    Workmanager().registerPeriodicTask("peminjaman", "peminjaman",frequency: Duration(minutes: 1));
+    // Workmanager().initialize(
+    //     callbackDispatcher, // The top level function, aka callbackDispatcher
+    //     isInDebugMode: true // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
+    // );
+    // Workmanager().registerPeriodicTask("peminjaman", "peminjaman",frequency: Duration(minutes: 1));
     runApp(MyApp());
     runApp(const MyApp());
   });
@@ -92,17 +92,26 @@ class MyApp extends StatelessWidget {
 }
 
 void callbackDispatcher() {
-  var storageService = locator<LocalStorageService>();
-  var bookName =storageService.getStringFromPref(Constants.notifikasiPengembalian);
-  if(bookName!=null){
-    Workmanager().executeTask((task, inputData) async{
-      await NotificationService.flutterLocalNotificationsPlugin.show(
-          12345,
-          "Pengembalian Buku",
-          "Harap mengembalikan buku $bookName",
-          platformChannelSpecifics,);
-      return Future.value(true);
-    });
-  }
+  // var storageService = locator<LocalStorageService>();
+  // var bookName =storageService.getStringFromPref(Constants.notifikasiPengembalian);
+  // if(bookName!=null){
+  //   Workmanager().executeTask((task, inputData) async{
+  //     await NotificationService.flutterLocalNotificationsPlugin.show(
+  //         12345,
+  //         "Pengembalian Buku",
+  //         "Harap mengembalikan buku $bookName",
+  //         platformChannelSpecifics,);
+  //     return Future.value(true);
+  //   });
+  // }
+
+  // Workmanager().executeTask((task, inputData) async{
+  //   await NotificationService.flutterLocalNotificationsPlugin.show(
+  //     12345,
+  //     "Pengembalian Buku",
+  //     "Harap mengembalikan buku",
+  //     platformChannelSpecifics,);
+  //   return Future.value(true);
+  // });
 
 }

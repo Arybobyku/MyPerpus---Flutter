@@ -70,6 +70,19 @@ class AdminProvider extends ChangeNotifier {
     }
   }
 
+  Future<Either<String, bool>> doKonfirmasiPembatalan() async {
+    try {
+      await _adminService.konfirmasiPembatalan(detailPeminjaman);
+      detailPeminjaman.status = 4;
+      listPeminjaman[listPeminjaman.indexWhere(
+              (element) => element.id == detailPeminjaman.id)] = detailPeminjaman;
+      notifyListeners();
+      return right(true);
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
   Future<void> searchPeminjamanById(String nomorPeminjaman) async {
     searchPeminjaman = null;
     notifyListeners();

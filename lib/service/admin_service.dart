@@ -87,6 +87,36 @@ class AdminService{
     }
   }
 
+
+  konfirmasiPembatalan(PeminjamanModel peminjaman)async{
+    try{
+      var peminjamanById = await _peminjamanReference.doc(peminjaman.id);
+      peminjamanById.update({
+        "status":4
+      });
+
+      peminjaman.bukuModel.forEach((element) async{
+        var bukuById = await _bukuReference.doc(element.id);
+        var bukumodel = await getBukuById(element.id!);
+        int stokBuku = bukumodel.stok+1;
+        bukuById.update({
+          "stok":stokBuku
+        });
+
+      });
+
+
+      var userById = await _userReference.doc(peminjaman.idUser);
+      userById.update({
+        "isOrder":false
+      });
+
+
+    }catch(e){
+      rethrow;
+    }
+  }
+
   Future<BukuModel> getBukuById(String id) async {
     try {
       DocumentSnapshot snapshot = await _bukuReference.doc(id).get();
