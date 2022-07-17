@@ -69,6 +69,28 @@ class UserService {
     }
   }
 
+
+  Future<void> updateProfile(UserModel user)async{
+    try{
+      var userById = await _userReference.doc(user.id);
+      await userById.update({
+        'namaLengkap': user.namaLengkap,
+        'alamat': user.alamat,
+        'provinsi': user.provinsi,
+        'kota': user.kota,
+        'kecamatan': user.kecamatan,
+        'kelurahan': user.kelurahan,
+        'rt': user.rt,
+        'rw': user.rw,
+        'statusPerkawinan': user.statusPerkawinan,
+        'agama': user.agama,
+      });
+
+    }catch(e){
+      rethrow;
+    }
+  }
+
   Future<UserModel> getUserById(String id) async {
     try {
       DocumentSnapshot snapshot = await _userReference.doc(id).get();

@@ -5,6 +5,8 @@ import 'package:my_perpus/helper/constants.dart';
 
 class InputFieldRounded extends StatelessWidget {
   final String hint;
+  final String? initialValue;
+  final String label;
   final ValueChanged<String> onChange;
   final Widget? suffixIcon;
   final bool secureText;
@@ -14,8 +16,10 @@ class InputFieldRounded extends StatelessWidget {
   const InputFieldRounded(
       {Key? key,
         required this.hint,
+        required this.label,
         required this.onChange,
         this.validatorCheck,
+        this.initialValue,
         this.suffixIcon,
         this.keyboardType = TextInputType.text,
         this.errortext,
@@ -29,6 +33,7 @@ class InputFieldRounded extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 15.0),
       decoration: kRoundedContainer,
       child: TextFormField(
+        initialValue: initialValue,
         validator: validatorCheck,
         onChanged: onChange,
         obscureText: secureText,
@@ -38,8 +43,11 @@ class InputFieldRounded extends StatelessWidget {
           errorText: errortext,
           filled: false,
           hoverColor: ColorPalette.generalPrimaryColor,
-          hintText: hint,
           hintStyle: TextStyle(
+            color: ColorPalette.generalPrimaryColor
+          ),
+          labelText: label,
+          floatingLabelStyle: TextStyle(
             color: ColorPalette.generalPrimaryColor
           ),
           suffixIcon: suffixIcon,

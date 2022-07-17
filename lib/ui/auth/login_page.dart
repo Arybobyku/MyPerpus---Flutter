@@ -58,6 +58,7 @@ class LoginPage extends StatelessWidget {
                           height: 10,
                         ),
                         InputFieldRounded(
+                          label: "Email",
                           hint: "Email",
                           onChange: (val) {
                             email = val;
@@ -65,6 +66,7 @@ class LoginPage extends StatelessWidget {
                           secureText: false,
                         ),
                         InputFieldRounded(
+                          label: "Password",
                           hint: "Password",
                           suffixIcon: Icon(
                             Icons.remove_red_eye_outlined,

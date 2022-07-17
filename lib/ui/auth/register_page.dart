@@ -79,6 +79,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 SizedBox(height: 10),
                 InputFieldRounded(
+                  label: "Nomor Identitas",
                   hint: "Nomor Identitas",
                   onChange: (val) {
                     nomorIdentitas = val;
@@ -86,6 +87,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "Nama Lengkap",
                   hint: "Nama Lengkap",
                   onChange: (val) {
                     namaLengkap = val;
@@ -93,6 +95,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "Email",
                   hint: "Email",
                   onChange: (val) {
                     email = val;
@@ -100,6 +103,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "Tempat Lahir",
                   hint: "Tempat Lahir",
                   onChange: (val) {
                     tempatLahir = val;
@@ -145,6 +149,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 SizedBox(height: 10),
                 InputFieldRounded(
+                  label: "Agama",
                   hint: "Agama",
                   onChange: (val) {
                     agama = val;
@@ -152,6 +157,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "Alamat",
                   hint: "Alamat",
                   onChange: (val) {
                     alamat = val;
@@ -173,6 +179,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 SizedBox(height: 10),
                 InputFieldRounded(
+                  label: "Kecamatan (optional)",
                   hint: "Kecamatan (optional)",
                   onChange: (val) {
                     kecamatan = val;
@@ -180,6 +187,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "Kelurahan (optional)",
                   hint: "Kelurahan (optional)",
                   onChange: (val) {
                     kelurahan = val;
@@ -187,6 +195,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "RT (optional)",
                   hint: "RT (optional)",
                   onChange: (val) {
                     rt = val;
@@ -194,6 +203,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "RW (optional)",
                   hint: "RW (optional)",
                   onChange: (val) {
                     rw = val;
@@ -201,6 +211,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "Password",
                   hint: "Password",
                   onChange: (val) {
                     password = val;

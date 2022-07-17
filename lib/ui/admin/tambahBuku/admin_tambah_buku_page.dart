@@ -65,6 +65,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
               children: [
                 SizedBox(height: 20),
                 InputFieldRounded(
+                  label: "Judul Buku",
                   hint: "Judul Buku",
                   onChange: (val) {
                     judul = val;
@@ -72,6 +73,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "Anak Judul",
                   hint: "Anak Judul",
                   onChange: (val) {
                     anakJudul = val;
@@ -79,6 +81,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "Pengarang",
                   hint: "pengarang",
                   onChange: (val) {
                     pengarang = val;
@@ -86,6 +89,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "Pengarang Tambahan",
                   hint: "Pengarang Tambahan",
                   onChange: (val) {
                     pengarangTambahan = val;
@@ -93,6 +97,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "Penerbit",
                   hint: "Penerbit",
                   onChange: (val) {
                     penerbit = val;
@@ -100,6 +105,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "Tempat Terbit",
                   hint: "Tempat Terbit",
                   onChange: (val) {
                     tempatTerbit = val;
@@ -107,6 +113,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "Tahun Terbit",
                   hint: "Tahun Terbit",
                   onChange: (val) {
                     tahunTerbit = val;
@@ -114,6 +121,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "Jumlah Halaman",
                   hint: "Jumlah Halaman",
                   onChange: (val) {
                     jumlahHalaman = int.parse(val);
@@ -121,6 +129,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "Keterangn Ilustrasi",
                   hint: "Keterangan Ilustrasi",
                   onChange: (val) {
                     keteranganIlustrasi = val;
@@ -128,6 +137,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "Dimensi",
                   hint: "Dimensi",
                   onChange: (val) {
                     dimensi = val;
@@ -135,6 +145,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label:"Edisi",
                   hint: "Edisi",
                   onChange: (val) {
                     edisi = val;
@@ -142,6 +153,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "Subjek",
                   hint: "Subjek",
                   onChange: (val) {
                     subjek = val;
@@ -149,6 +161,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "No Klass",
                   hint: "No Klass",
                   onChange: (val) {
                     noKlass = val;
@@ -156,6 +169,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "No Panggil",
                   hint: "No Panggil",
                   onChange: (val) {
                     noPanggil = val;
@@ -163,6 +177,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "ISBN",
                   hint: "ISBN",
                   onChange: (val) {
                     ISBN = val;
@@ -170,6 +185,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "Bahasa",
                   hint: "Bahasa",
                   onChange: (val) {
                     bahasa = val;
@@ -177,6 +193,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "Bentuk Karya Tulis",
                   hint: "Bentuk Karya Tulis",
                   onChange: (val) {
                     bentukKaryaTulis = val;
@@ -184,6 +201,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "Kelompok Sasaran",
                   hint: "Kelompok Sasaran",
                   onChange: (val) {
                     kelompokSasaran = val;
@@ -191,6 +209,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "Lokasi Koleksi Daring",
                   hint: "Lokasi Koleksi Daring",
                   onChange: (val) {
                     lokasiKoleksiDaring = val;
@@ -198,6 +217,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
                   secureText: false,
                 ),
                 InputFieldRounded(
+                  label: "Stok Buku",
                   hint: "Stok Buku",
                   keyboardType: TextInputType.number,
                   onChange: (val) {
