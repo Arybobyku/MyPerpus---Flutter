@@ -56,7 +56,7 @@ class _NavigatorPageState extends State<NavigatorPage> {
         Provider.of<AuthProvider>(context,listen: false).setUserModelFromPref(userModel);
         Get.offAllNamed(Routes.pustawakan);
       }else{
-        UserModel userModel = UserModel.fromjson(jsonDecode(userJson!), user.uid);
+        UserModel userModel = UserModel.  fromjson(jsonDecode(userJson!), user.uid);
         Provider.of<AuthProvider>(context,listen: false).setUserModelFromPref(userModel);
         Get.offAllNamed(Routes.mainMenu);
       }

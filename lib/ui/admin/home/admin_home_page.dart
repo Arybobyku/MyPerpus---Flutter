@@ -5,6 +5,7 @@ import 'package:my_perpus/helper/color_palette.dart';
 import 'package:my_perpus/provider/admin.dart';
 import 'package:my_perpus/provider/auth.dart';
 import 'package:my_perpus/routes.dart';
+import 'package:my_perpus/ui/widget/horizontal_icon_label.dart';
 import 'package:my_perpus/ui/widget/search_bar.dart';
 import 'package:my_perpus/ui/widget/status_peminjaman.dart';
 import 'package:provider/provider.dart';
@@ -40,42 +41,101 @@ class _AdminHomePageState extends State<AdminHomePage> {
     return SafeArea(
       child: Consumer<AdminProvider>(builder: (context, valueAdmin, _) {
         return Scaffold(
+          drawer: Drawer(
+            child: ListView(
+              children: [
+                const DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: ColorPalette.generalPrimaryColor,
+                  ),
+                  child: Text('Admin',style: TextStyle(fontSize: 18,color: Colors.white),),
+                ),
+                HorizontalIconLabel(
+                  icon: Icons.home,
+                  label: "Beranda",
+                  ontap: (){
+                    Get.toNamed(Routes.adminHome);
+                  },
+                ),
+                HorizontalIconLabel(
+                  icon: Icons.person,
+                  label: "Anggota",
+                  ontap: (){
+                    Get.toNamed(Routes.adminCheckUser);
+                  },
+                ),
+                HorizontalIconLabel(
+                  icon: Icons.book,
+                  label: "Tambah Buku",
+                  ontap: (){
+                    Get.toNamed(Routes.adminTambahBuku);
+                  },
+                ),
+                HorizontalIconLabel(
+                  icon: Icons.info,
+                  label: "Detail",
+                  ontap: (){
+                  },
+                ),
+                SizedBox(height: 10,),
+                Divider(height: 1,color: ColorPalette.generalGrey,),
+                HorizontalIconLabel(
+                  icon: Icons.window,
+                  label: "Katalog",
+                  ontap: (){
+                  },
+                ),
+                HorizontalIconLabel(
+                  icon: Icons.wysiwyg,
+                  label: "Laporan",
+                  ontap: (){
+                  },
+                ),
+                HorizontalIconLabel(
+                  icon: Icons.all_inbox_outlined,
+                  label: "Survey",
+                  ontap: (){
+                  },
+                ),
+                HorizontalIconLabel(
+                  icon: Icons.add_business_rounded,
+                  label: "Layanan Koleksi Digital",
+                  ontap: (){
+                  },
+                ),
+                HorizontalIconLabel(
+                  icon: Icons.admin_panel_settings,
+                  label: "Administrasi",
+                  ontap: (){
+                  },
+                ),
+                HorizontalIconLabel(
+                  icon: Icons.account_tree_sharp,
+                  label: "Pengaturan",
+                  ontap: (){
+                  },
+                ),
+                SizedBox(height: 10,),
+                Divider(height: 1,color: ColorPalette.generalGrey,),
+                HorizontalIconLabel(
+                  icon: Icons.logout,
+                  label: "Keluar",
+                  color: Colors.red,
+                  ontap: (){
+                    doSignOut(context);
+                  },
+                ),
+              ],
+            ),
+          ),
           appBar: AppBar(
             backgroundColor: ColorPalette.generalBackgroundColor,
             title: Text(
-              "Admin",
+              "Beranda",
               style: TextStyle(color: ColorPalette.generalPrimaryColor),
             ),
-            actions: [
-              GestureDetector(
-                onTap: (){
-                  Get.toNamed(Routes.adminCheckUser);
-                },
-                child: Icon(
-                  Icons.person,
-                  color: ColorPalette.generalPrimaryColor,
-                ),
-              ),
-              SizedBox(width: 15),
-              GestureDetector(
-                onTap: () => doSignOut(context),
-                child: Icon(
-                  Icons.logout,
-                  color: ColorPalette.generalPrimaryColor,
-                ),
-              ),
-              SizedBox(width: 15),
-            ],
           ),
           backgroundColor: ColorPalette.generalBackgroundColor,
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: ColorPalette.generalPrimaryColor,
-            child: Icon(
-              Icons.book,
-              color: Colors.white,
-            ),
-            onPressed: () => Get.toNamed(Routes.adminTambahBuku),
-          ),
           body: SmartRefresher(
             controller: _refreshController,
             onRefresh: ()async{
