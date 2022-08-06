@@ -22,9 +22,9 @@ import 'service/notification.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   configureInjection();
   await NotificationService().init();
-  await Firebase.initializeApp();
   await SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
   );

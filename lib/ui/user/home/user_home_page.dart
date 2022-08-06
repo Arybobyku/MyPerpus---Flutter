@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_perpus/helper/color_palette.dart';
+import 'package:my_perpus/helper/constants.dart';
 import 'package:my_perpus/provider/auth.dart';
 import 'package:my_perpus/provider/buku.dart';
 import 'package:my_perpus/provider/peminjaman.dart';
@@ -53,6 +54,18 @@ class _UserHomePageState extends State<UserHomePage> {
                     style: TextStyle(color: Colors.red),
                   ),
                 ),
+                if(valueAuth.user.pinalty!=null && getDurationDifferenceInt(DateTime.now(), valueAuth.user.pinalty!)>=0)
+                  Container(
+                    padding: EdgeInsets.all(5),
+                    decoration:
+                    BoxDecoration(color: ColorPalette.generalSoftYellow),
+                    child: Text(
+                      "Maaf anda tidak dapat meminjam buku sampai tanggal ${parseDate(valueAuth.user.pinalty.toString())} dikarenakan "
+                          "keterlambatan pengembalian buku",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ),
                 SizedBox(height: 15),
                 Row(
                   children: [

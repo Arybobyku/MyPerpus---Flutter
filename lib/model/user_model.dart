@@ -22,6 +22,7 @@ class UserModel {
   String? kelurahan = null;
   String? rt = null;
   String? rw = null;
+  DateTime? pinalty = null;
   late String statusPerkawinan;
   late String agama;
   late bool isValid;
@@ -46,12 +47,14 @@ class UserModel {
     this.kelurahan,
     this.rt,
     this.rw,
+    this.pinalty,
     required this.statusPerkawinan,
     required this.agama,
     required this.isValid,
   });
 
   factory UserModel.fromjson(Map<String, dynamic> json, String id) {
+    var pinaltyToDate = json['pinalty']??null;
     return UserModel(
       id: id,
       uuid: json['uuid'],
@@ -59,6 +62,7 @@ class UserModel {
       photoProfile: json['photoProfile'],
       kota: json['kota'],
       provinsi: json['provinsi'],
+      pinalty:pinaltyToDate!=null ? DateTime.parse(json['pinalty']):null,
       alamat: json['alamat'],
       tempatLahir: json['tempatLahir'],
       namaLengkap: json['namaLengkap'],
@@ -80,6 +84,8 @@ class UserModel {
 
   factory UserModel.fromjsonWithTimeStamp(Map<String, dynamic> json, String id) {
     var jsonTglLahir = json['tanggalLahir'];
+    print("MY PINALTY ${json['pinalty']}");
+    var pinaltyToDate = json['pinalty']??null;
     return UserModel(
       id: id,
       uuid: json['uuid'],
@@ -91,6 +97,7 @@ class UserModel {
       tempatLahir: json['tempatLahir'],
       namaLengkap: json['namaLengkap'],
       tanggalLahir: jsonTglLahir.toDate(),
+      pinalty:pinaltyToDate!=null? pinaltyToDate.toDate():null,
       nomorIdentitas: json['nomorIdentitas'],
       password: '',
       email: json['email'],
@@ -107,6 +114,8 @@ class UserModel {
   }
 
   factory UserModel.fromjsonWithId(Map<String, dynamic> json) {
+
+    var jsnTglPinalty = json['pinalty']??null;
     return UserModel(
       id: json['id'],
       uuid: json['uuid'],
@@ -118,6 +127,7 @@ class UserModel {
       tempatLahir: json['tempatLahir'],
       namaLengkap: json['namaLengkap'],
       tanggalLahir: DateTime.parse(json['tanggalLahir']),
+      pinalty:jsnTglPinalty!=null? DateTime.parse(json['pinalty']):null,
       nomorIdentitas: json['nomorIdentitas'],
       password: '',
       email: json['email'],
@@ -147,6 +157,7 @@ class UserModel {
     'tanggalLahir': tanggalLahir.toIso8601String(),
     'nomorIdentitas': nomorIdentitas,
     'email': email,
+    'pinalty':pinalty!=null? pinalty?.toIso8601String():null,
     'jenisIdentitas': jenisIdentitas,
     'kecamatan': kecamatan,
     'kelurahan': kelurahan,

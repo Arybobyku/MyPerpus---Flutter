@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:my_perpus/helper/color_palette.dart';
 import 'package:my_perpus/provider/admin.dart';
 import 'package:my_perpus/provider/auth.dart';
+import 'package:my_perpus/provider/buku.dart';
 import 'package:my_perpus/routes.dart';
 import 'package:my_perpus/ui/widget/horizontal_icon_label.dart';
 import 'package:my_perpus/ui/widget/search_bar.dart';
@@ -23,15 +24,17 @@ class AdminHomePage extends StatefulWidget {
 
 class _AdminHomePageState extends State<AdminHomePage> {
   bool getData = true;
-  int selectedIndex = 0;
+  int selectedIndex = Get.arguments ?? 0;
 
   @override
   void initState() {
-    if (getData) {
-      // EasyLoading.show(status: "Loading");
-      Provider.of<AdminProvider>(context, listen: false).getAllPeminjaman();
-      getData = false;
-    }
+    // if (getData) {
+    //   // EasyLoading.show(status: "Loading");
+    //   Provider.of<AdminProvider>(context, listen: false).getAllPeminjaman();
+    //   Provider.of<AdminProvider>(context, listen: false).getAllUser();
+    //   Provider.of<BukuProvider>(context, listen: false).doGetAllBook();
+    //   getData = false;
+    // }
     super.initState();
   }
 
@@ -41,97 +44,10 @@ class _AdminHomePageState extends State<AdminHomePage> {
     return SafeArea(
       child: Consumer<AdminProvider>(builder: (context, valueAdmin, _) {
         return Scaffold(
-          drawer: Drawer(
-            child: ListView(
-              children: [
-                const DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: ColorPalette.generalPrimaryColor,
-                  ),
-                  child: Text('Admin',style: TextStyle(fontSize: 18,color: Colors.white),),
-                ),
-                HorizontalIconLabel(
-                  icon: Icons.home,
-                  label: "Beranda",
-                  ontap: (){
-                    Get.toNamed(Routes.adminHome);
-                  },
-                ),
-                HorizontalIconLabel(
-                  icon: Icons.person,
-                  label: "Anggota",
-                  ontap: (){
-                    Get.toNamed(Routes.adminCheckUser);
-                  },
-                ),
-                HorizontalIconLabel(
-                  icon: Icons.book,
-                  label: "Tambah Buku",
-                  ontap: (){
-                    Get.toNamed(Routes.adminTambahBuku);
-                  },
-                ),
-                HorizontalIconLabel(
-                  icon: Icons.info,
-                  label: "Detail",
-                  ontap: (){
-                  },
-                ),
-                SizedBox(height: 10,),
-                Divider(height: 1,color: ColorPalette.generalGrey,),
-                HorizontalIconLabel(
-                  icon: Icons.window,
-                  label: "Katalog",
-                  ontap: (){
-                  },
-                ),
-                HorizontalIconLabel(
-                  icon: Icons.wysiwyg,
-                  label: "Laporan",
-                  ontap: (){
-                  },
-                ),
-                HorizontalIconLabel(
-                  icon: Icons.all_inbox_outlined,
-                  label: "Survey",
-                  ontap: (){
-                  },
-                ),
-                HorizontalIconLabel(
-                  icon: Icons.add_business_rounded,
-                  label: "Layanan Koleksi Digital",
-                  ontap: (){
-                  },
-                ),
-                HorizontalIconLabel(
-                  icon: Icons.admin_panel_settings,
-                  label: "Administrasi",
-                  ontap: (){
-                  },
-                ),
-                HorizontalIconLabel(
-                  icon: Icons.account_tree_sharp,
-                  label: "Pengaturan",
-                  ontap: (){
-                  },
-                ),
-                SizedBox(height: 10,),
-                Divider(height: 1,color: ColorPalette.generalGrey,),
-                HorizontalIconLabel(
-                  icon: Icons.logout,
-                  label: "Keluar",
-                  color: Colors.red,
-                  ontap: (){
-                    doSignOut(context);
-                  },
-                ),
-              ],
-            ),
-          ),
           appBar: AppBar(
             backgroundColor: ColorPalette.generalBackgroundColor,
             title: Text(
-              "Beranda",
+              "Aktivitas",
               style: TextStyle(color: ColorPalette.generalPrimaryColor),
             ),
           ),
@@ -244,32 +160,4 @@ class _AdminHomePageState extends State<AdminHomePage> {
     );
   }
 
-  doSignOut(BuildContext context) async {
-    EasyLoading.show(status: "Loading...");
-    var result =
-        await Provider.of<AuthProvider>(context, listen: false).doSignOut();
-    result.fold((l) {
-      EasyLoading.dismiss();
-      Alert(
-        context: context,
-        type: AlertType.error,
-        title: "Error",
-        desc: l,
-        buttons: [
-          DialogButton(
-            child: Text(
-              "Close",
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-            onPressed: () => Navigator.pop(context),
-            color: ColorPalette.generalPrimaryColor,
-            radius: BorderRadius.circular(0.0),
-          ),
-        ],
-      ).show();
-    }, (r) {
-      EasyLoading.dismiss();
-      Get.offAllNamed(Routes.login);
-    });
-  }
 }

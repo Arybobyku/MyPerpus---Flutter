@@ -5,6 +5,8 @@ import 'package:my_perpus/model/buku_model.dart';
 import 'package:my_perpus/model/peminjaman_model.dart';
 import 'package:my_perpus/model/user_model.dart';
 
+import '../helper/constants.dart';
+
 class AdminService{
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -65,6 +67,8 @@ class AdminService{
         "status":3
       });
 
+      var isPinalty = getDurationDifferenceInt(DateTime.now(), peminjaman.tanggalPengembalian!);
+
       peminjaman.bukuModel.forEach((element) async{
         var bukuById = await _bukuReference.doc(element.id);
         var bukumodel = await getBukuById(element.id!);
@@ -75,11 +79,19 @@ class AdminService{
 
       });
 
-
       var userById = await _userReference.doc(peminjaman.idUser);
+
       userById.update({
-        "isOrder":false
+        "isOrder":false,
       });
+
+      if(isPinalty<=0){
+        isPinalty *= -1;
+        DateTime pinaltyUntil = DateTime.now().add(Duration(days: isPinalty));
+        userById.update({
+          "pinalty":pinaltyUntil,
+        });
+      }
 
 
     }catch(e){

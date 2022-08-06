@@ -96,12 +96,15 @@ class UserService {
       DocumentSnapshot snapshot = await _userReference.doc(id).get();
       var tanggalLahir = snapshot['tanggalLahir'];
       DateTime date = tanggalLahir.toDate();
+      var tanggalPinalty = snapshot['pinalty']??null;
+      DateTime? tglPinaltyToDateTime = tanggalPinalty!=null? tanggalPinalty.toDate():null;
       return UserModel(
         id: id,
         uuid: snapshot['uuid'],
         email: snapshot['email'],
         namaLengkap: snapshot['namaLengkap'],
         password: '',
+        pinalty: tglPinaltyToDateTime,
         jenisIdentitas: snapshot['jenisIdentitas'],
         provinsi: snapshot['provinsi'],
         kota: snapshot['kota'],

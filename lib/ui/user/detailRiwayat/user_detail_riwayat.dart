@@ -87,7 +87,9 @@ class UserDetailRiwayat extends StatelessWidget {
                 ),
               ),
               if (peminjaman.detailRiwayat.perpanjang < 1 &&
-                  peminjaman.detailRiwayat.status == 2)
+                  peminjaman.detailRiwayat.status == 2 &&
+                  getDurationDifferenceInt(DateTime.now(), peminjaman.detailRiwayat.tanggalPengembalian!)>=0
+              )
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: ButtonRounded(

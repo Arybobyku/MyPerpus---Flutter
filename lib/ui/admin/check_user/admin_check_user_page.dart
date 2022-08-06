@@ -24,7 +24,7 @@ class _AdminCheckUserPageState extends State<AdminCheckUserPage> {
   void initState() {
     if (getData) {
       // EasyLoading.show(status: "Loading");
-      Provider.of<AdminProvider>(context, listen: false).getAllUser();
+      // Provider.of<AdminProvider>(context, listen: false).getAllUser();
       getData = false;
     }
     super.initState();

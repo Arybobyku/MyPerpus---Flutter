@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:my_perpus/helper/color_palette.dart';
+import 'package:my_perpus/helper/constants.dart';
 import 'package:my_perpus/provider/auth.dart';
 import 'package:my_perpus/provider/buku.dart';
 import 'package:my_perpus/provider/peminjaman.dart';
@@ -39,12 +40,10 @@ class UserDetailBukuPage extends StatelessWidget {
                             width: double.infinity,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: imageProvider,
-                                  fit: BoxFit.fitHeight),
+                                  image: imageProvider, fit: BoxFit.fitHeight),
                             ),
                             foregroundDecoration: valueBuku.bukuDetail!.stok > 0
-                                ?
-                                BoxDecoration()
+                                ? BoxDecoration()
                                 : BoxDecoration(
                                     color: ColorPalette.generalSoftGrey,
                                     backgroundBlendMode: BlendMode.saturation,
@@ -70,11 +69,11 @@ class UserDetailBukuPage extends StatelessWidget {
                         SizedBox(height: 15),
                         VerticalTitleValue(
                             title: 'Keterangan Ilustasi',
-                            value:  valueBuku.bukuDetail!.keteranganIlustrasi),
+                            value: valueBuku.bukuDetail!.keteranganIlustrasi),
                         SizedBox(height: 15),
                         VerticalTitleValue(
                             title: 'Subjek',
-                            value:  valueBuku.bukuDetail!.subjek),
+                            value: valueBuku.bukuDetail!.subjek),
                         SizedBox(height: 15),
                         VerticalTitleValue(
                             title: 'Pengarang',
@@ -82,7 +81,8 @@ class UserDetailBukuPage extends StatelessWidget {
                         SizedBox(height: 15),
                         VerticalTitleValue(
                             title: 'Pengarang Tambahan',
-                            value: valueBuku.bukuDetail!.pengarangTambahan??"-"),
+                            value:
+                                valueBuku.bukuDetail!.pengarangTambahan ?? "-"),
                         SizedBox(height: 15),
                         VerticalTitleValue(
                             title: 'Penerbit',
@@ -94,39 +94,38 @@ class UserDetailBukuPage extends StatelessWidget {
                         SizedBox(height: 15),
                         VerticalTitleValue(
                             title: 'Tahun Terbit',
-                            value:  valueBuku.bukuDetail!.tahunTerbit),
+                            value: valueBuku.bukuDetail!.tahunTerbit),
                         SizedBox(height: 15),
                         VerticalTitleValue(
                             title: 'Tempat Terbit',
-                            value:  valueBuku.bukuDetail!.tempatTerbit),
+                            value: valueBuku.bukuDetail!.tempatTerbit),
                         SizedBox(height: 15),
                         VerticalTitleValue(
                             title: 'Bentuk Karya Tulis',
-                            value:  valueBuku.bukuDetail!.bentukKaryaTulis),
+                            value: valueBuku.bukuDetail!.bentukKaryaTulis),
                         SizedBox(height: 15),
                         VerticalTitleValue(
-                            title: 'ISBN',
-                            value:  valueBuku.bukuDetail!.ISBN),
+                            title: 'ISBN', value: valueBuku.bukuDetail!.ISBN),
                         SizedBox(height: 15),
                         VerticalTitleValue(
                             title: 'Bahasa',
-                            value:  valueBuku.bukuDetail!.bahasa),
+                            value: valueBuku.bukuDetail!.bahasa),
                         SizedBox(height: 15),
                         VerticalTitleValue(
                             title: 'Dimensi',
-                            value:  valueBuku.bukuDetail!.dimensi),
+                            value: valueBuku.bukuDetail!.dimensi),
                         SizedBox(height: 15),
                         VerticalTitleValue(
-                            title: 'Edisi',
-                            value:  valueBuku.bukuDetail!.edisi),
+                            title: 'Edisi', value: valueBuku.bukuDetail!.edisi),
                         SizedBox(height: 15),
                         VerticalTitleValue(
                             title: 'Jumlah Halaman',
-                            value:  valueBuku.bukuDetail!.jumlahHalaman.toString()),
+                            value:
+                                valueBuku.bukuDetail!.jumlahHalaman.toString()),
                         SizedBox(height: 15),
                         VerticalTitleValue(
                             title: 'Kelompok Sasaran',
-                            value:  valueBuku.bukuDetail!.kelompokSasaran),
+                            value: valueBuku.bukuDetail!.kelompokSasaran),
                         SizedBox(height: 15),
                         VerticalTitleValue(
                             title: 'Stok Buku',
@@ -136,23 +135,27 @@ class UserDetailBukuPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                if (valuAuth.user.isValid)
-                  if (!valuePeminjaman.riwayatSaya
-                          .any((element) => element.status < 3) ||
-                      valuePeminjaman.riwayatSaya.isEmpty)
-                    if (valueBuku.bukuDetail!.stok > 0)
-                      if(valuePeminjaman.keranjang.length<3)
-                      if (!valuePeminjaman.keranjang.any(
-                          (element) => element.id == valueBuku.bukuDetail!.id))
-                        ButtonRounded(
-                          text: "Tambah Buku",
-                          onPressed: () {
-                            Provider.of<PeminjamanProvider>(context,
-                                    listen: false)
-                                .tambahKeKeranjang(valueBuku.bukuDetail!);
-                            Get.back();
-                          },
-                        )
+                  if (valuAuth.user.isValid)
+                    if (!valuePeminjaman.riwayatSaya
+                            .any((element) => element.status < 3) ||
+                        valuePeminjaman.riwayatSaya.isEmpty)
+                      if (valueBuku.bukuDetail!.stok > 0)
+                        if (valuePeminjaman.keranjang.length < 3)
+                          if (!valuePeminjaman.keranjang.any((element) =>
+                              element.id == valueBuku.bukuDetail!.id))
+                            if (valuAuth.user.pinalty != null &&
+                                getDurationDifferenceInt(DateTime.now(),
+                                        valuAuth.user.pinalty!) <
+                                    0)
+                              ButtonRounded(
+                                text: "Tambah Buku",
+                                onPressed: () {
+                                  Provider.of<PeminjamanProvider>(context,
+                                          listen: false)
+                                      .tambahKeKeranjang(valueBuku.bukuDetail!);
+                                  Get.back();
+                                },
+                              )
               ],
             ),
           );
