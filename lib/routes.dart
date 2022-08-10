@@ -15,6 +15,7 @@ import 'package:my_perpus/ui/user/detailRiwayat/user_detail_riwayat.dart';
 import 'package:my_perpus/ui/user/detailbuku/user_detail_buku.dart';
 import 'package:my_perpus/ui/user/keranjang/user_keranjang_page.dart';
 import 'package:my_perpus/ui/user/main_menu_page.dart';
+import 'package:my_perpus/ui/web_view.dart';
 
 import 'ui/detail_buku.dart';
 import 'ui/user/search/user_search_page.dart';
@@ -40,6 +41,7 @@ class Routes {
   static const String userKeranjang = "/userKeranjang";
   static const String pustawakan = "/pustawakan";
   static const String detailBukuGeneral = "/detailBukuGeneral";
+  static const String webView = "/webView";
 
   static final newRoutes = <GetPage>[
     GetPage(name: navigator, page:()=>NavigatorPage()),
@@ -60,5 +62,6 @@ class Routes {
     GetPage(name: userKeranjang, page:()=>UserKeranjangPage()),
     GetPage(name: pustawakan, page:()=>PustakawanPage()),
     GetPage(name: detailBukuGeneral, page:()=>BukuDetailPage()),
+    GetPage(name: webView, page:()=>WebViewPage()),
   ];
 }

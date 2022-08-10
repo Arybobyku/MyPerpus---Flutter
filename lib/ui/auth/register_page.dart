@@ -28,6 +28,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   File? photoProfile = null;
+  File? filePicker = null;
   bool secureText = true;
   String? jenisIdentitas = "KTP";
   String? nomorIdentitas = null;
@@ -229,7 +230,18 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   secureText: secureText,
                 ),
-
+                filePicker!= null ?Container(
+                  margin: EdgeInsets.only(top: 15, bottom: 30),
+                  height: 200,
+                  width: 150,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Icon(Icons.file_copy_outlined,size: 80,),
+                ):ButtonPicker(
+                  title: "Upload File KIA (optional)",
+                  onTap: () => doImagePicker(),
+                ),
                 photoProfile != null
                     ? Container(
                   margin: EdgeInsets.only(top: 15, bottom: 30),
@@ -281,6 +293,22 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
+
+  doFilePicker() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf', 'doc',],
+    );
+
+    if (result != null) {
+      setState(() {
+        filePicker = File(result.files.single.path!);
+      });
+    } else {
+      // User canceled the picker
+    }
+  }
+
 
   doImagePicker() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(

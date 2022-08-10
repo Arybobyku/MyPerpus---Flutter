@@ -12,9 +12,30 @@ import 'package:my_perpus/ui/widget/button_rounded.dart';
 import 'package:my_perpus/ui/widget/input_field_rounded.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:download_assets/download_assets.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  DownloadAssetsController downloadAssetsController = DownloadAssetsController();
+  String message = "Press the download button to start the download";
+  bool downloaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _init();
+  }
+
+  Future _init() async {
+    await downloadAssetsController.init();
+    downloaded = await downloadAssetsController.assetsDirAlreadyExists();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +49,7 @@ class LoginPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Flexible(
                   fit: FlexFit.loose,
@@ -103,6 +125,20 @@ class LoginPage extends StatelessWidget {
                               ),
                             ),
                           ],
+                        ),
+                        SizedBox(height: 5),
+                        SizedBox(
+                          width: double.infinity,
+                          child: GestureDetector(
+                            onTap: ()=>Get.toNamed(Routes.webView,arguments: "https://docs.google.com/document/d/1KgY5KFYT2iQQaxQc5Ym0haLEvOGbPLza/edit?usp=sharing&ouid=114108662564056139028&rtpof=true&sd=true"),
+                            child: Text(
+                              "Tata cara penggunaan aplikasi",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: ColorPalette.generalPrimaryColor),
+                            ),
+                          ),
                         )
                       ],
                     ),
@@ -119,38 +155,71 @@ class LoginPage extends StatelessWidget {
   doLogin(BuildContext context, String email, String password) async {
     EasyLoading.show(status: 'loading...');
     var result =
-        await Provider.of<AuthProvider>(context, listen: false).doSignIn(
+    await Provider.of<AuthProvider>(context, listen: false).doSignIn(
       email: email,
       password: password,
     );
-    result.fold(
-      (l){
-        EasyLoading.dismiss();
-        Alert(
-          context: context,
-          type: AlertType.error,
-          title: "Error Login",
-          desc: l,
-          buttons: [
-            DialogButton(
-              child: Text(
-                "Close",
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-              onPressed: () => Navigator.pop(context),
-              color: ColorPalette.generalPrimaryColor,
-              radius: BorderRadius.circular(0.0),
+    result.fold((l) {
+      EasyLoading.dismiss();
+      Alert(
+        context: context,
+        type: AlertType.error,
+        title: "Error Login",
+        desc: l,
+        buttons: [
+          DialogButton(
+            child: Text(
+              "Close",
+              style: TextStyle(color: Colors.white, fontSize: 20),
             ),
-          ],
-        ).show();
-      },
-      (r){
-        EasyLoading.dismiss();
-        Get.offAllNamed(
-          Routes.navigator,
-        );
-      }
-    );
+            onPressed: () => Navigator.pop(context),
+            color: ColorPalette.generalPrimaryColor,
+            radius: BorderRadius.circular(0.0),
+          ),
+        ],
+      ).show();
+    }, (r) {
+      EasyLoading.dismiss();
+      Get.offAllNamed(
+        Routes.navigator,
+      );
+    });
+  }
 
+  Future _downloadAssets() async {
+    bool assetsDownloaded = await downloadAssetsController.assetsDirAlreadyExists();
+
+    if (assetsDownloaded) {
+      setState(() {
+        message = "Click in refresh button to force download";
+        print(message);
+      });
+      return;
+    }
+
+    try {
+      await downloadAssetsController.startDownload(
+        assetsUrl: "https://github.com/edjostenes/download_assets/raw/master/assets.zip",
+        onProgress: (progressValue) {
+          downloaded = false;
+          setState(() {
+            if (progressValue < 100) {
+              message = "Downloading - ${progressValue.toStringAsFixed(2)}";
+              print(message);
+            } else {
+              message = "Download completed\nClick in refresh button to force download";
+              print(message);
+              downloaded = true;
+            }
+          });
+        },
+      );
+    } on DownloadAssetsException catch (e) {
+      print(e.toString());
+      setState(() {
+        downloaded = false;
+        message = "Error: ${e.toString()}";
+      });
+    }
   }
 }

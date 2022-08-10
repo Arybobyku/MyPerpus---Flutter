@@ -36,6 +36,7 @@ class UserService {
 
     String path = await simpanGambar(photoProfile);
     Random random = new Random();
+    DateTime pinalty = DateTime(2000);
     int randomNumber = random.nextInt(100);
     String code = "${randomNumber}${DateTime.now().millisecond}${DateTime.now().second}${DateTime.now().minute}${DateTime.now().month}${DateTime.now().year}";
     user.photoProfile = path;
@@ -49,6 +50,7 @@ class UserService {
         'jenisIdentitas': user.jenisIdentitas,
         'provinsi': user.provinsi,
         'role': 0,
+        'pinalty':pinalty,
         'photoProfile': path,
         'kota': user.kota,
         'tempatLahir': user.tempatLahir,
