@@ -287,8 +287,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
         bahasa != null &&
         bentukKaryaTulis != null &&
         kelompokSasaran != null &&
-        lokasiKoleksiDaring != null &&
-        imageCoverFile != null) {
+        lokasiKoleksiDaring != null) {
       var buku = BukuModel(
         judul: judul!,
         anakJudul: anakJudul!,
@@ -315,7 +314,7 @@ class _AdminTambahBukuPageState extends State<AdminTambahBukuPage> {
       EasyLoading.show(status: "Loading");
 
       var result = await Provider.of<BukuProvider>(context, listen: false)
-          .doTambahBuku(buku: buku, coverBuku: imageCoverFile!);
+          .doTambahBuku(buku: buku, coverBuku: imageCoverFile);
 
       result.fold((l){
         EasyLoading.dismiss();

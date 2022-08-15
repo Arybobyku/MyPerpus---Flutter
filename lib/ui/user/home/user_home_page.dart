@@ -124,6 +124,7 @@ class _UserHomePageState extends State<UserHomePage> {
                     shrinkWrap: true,
                     itemCount: valueBuku.listBuku.length,
                     scrollDirection: Axis.horizontal,
+                    reverse: true,
                     physics: ClampingScrollPhysics(),
                     itemBuilder: (context, index) {
                       return Container(

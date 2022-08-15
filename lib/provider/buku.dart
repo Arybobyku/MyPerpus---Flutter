@@ -13,9 +13,15 @@ class BukuProvider extends ChangeNotifier {
   BukuModel? bukuDetail = null;
 
   Future<Either<String, bool>> doTambahBuku(
-      {required BukuModel buku, required File coverBuku}) async {
+      {required BukuModel buku, required File? coverBuku}) async {
     try {
-      var hasil = await _bukuService.simpanGambar(buku, coverBuku);
+      var hasil = buku;
+      if(coverBuku!=null){
+         hasil = await _bukuService.simpanGambar(buku, coverBuku);
+      }else{
+        hasil.gambar = "https://firebasestorage.googleapis.com/v0/b/myperpus-a5b72.appspot.com/o/no-cover.png?alt=media&token=0095d2e4-8490-4c48-bb79-66fd72ea226c";
+      }
+
       await _bukuService.setBuku(hasil);
       return right(true);
     } catch (e) {

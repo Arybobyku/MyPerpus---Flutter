@@ -239,7 +239,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   child: Icon(Icons.file_copy_outlined,size: 80,),
                 ):ButtonPicker(
-                  title: "Upload File KIA (optional)",
+                  title: "Upload File Persyaratan (Kota Medan dan Luar Kota Medan)",
                   onTap: () => doImagePicker(),
                 ),
                 photoProfile != null

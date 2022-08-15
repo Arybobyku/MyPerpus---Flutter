@@ -22,19 +22,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  DownloadAssetsController downloadAssetsController = DownloadAssetsController();
-  String message = "Press the download button to start the download";
-  bool downloaded = false;
 
   @override
   void initState() {
     super.initState();
-    _init();
-  }
-
-  Future _init() async {
-    await downloadAssetsController.init();
-    downloaded = await downloadAssetsController.assetsDirAlreadyExists();
   }
 
   @override
@@ -165,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
         context: context,
         type: AlertType.error,
         title: "Error Login",
-        desc: l,
+        desc: "Password atau email yang anda masukan salah",
         buttons: [
           DialogButton(
             child: Text(
@@ -186,40 +177,4 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  Future _downloadAssets() async {
-    bool assetsDownloaded = await downloadAssetsController.assetsDirAlreadyExists();
-
-    if (assetsDownloaded) {
-      setState(() {
-        message = "Click in refresh button to force download";
-        print(message);
-      });
-      return;
-    }
-
-    try {
-      await downloadAssetsController.startDownload(
-        assetsUrl: "https://github.com/edjostenes/download_assets/raw/master/assets.zip",
-        onProgress: (progressValue) {
-          downloaded = false;
-          setState(() {
-            if (progressValue < 100) {
-              message = "Downloading - ${progressValue.toStringAsFixed(2)}";
-              print(message);
-            } else {
-              message = "Download completed\nClick in refresh button to force download";
-              print(message);
-              downloaded = true;
-            }
-          });
-        },
-      );
-    } on DownloadAssetsException catch (e) {
-      print(e.toString());
-      setState(() {
-        downloaded = false;
-        message = "Error: ${e.toString()}";
-      });
-    }
-  }
 }
