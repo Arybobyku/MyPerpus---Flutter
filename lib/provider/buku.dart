@@ -55,6 +55,34 @@ class BukuProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<Either<String,bool>> doUpdateBuku({required File? coverBuku})async{
+    try{
+      var hasil = bukuDetail;
+      if(coverBuku!=null){
+        hasil = await _bukuService.simpanGambar(bukuDetail!, coverBuku);
+      }else{
+        hasil?.gambar = bukuDetail?.gambar;
+      }
+      await _bukuService.updateBuku(hasil!);
+      listBuku[listBuku.indexWhere((element) => element.id==bukuDetail?.id)] = hasil;
+      notifyListeners();
+       return right(true);
+    }catch(e){
+      return left(e.toString());
+    }
+  }
+
+  Future<Either<String,bool>> doDeleteBuku(String id)async{
+    try{
+      _bukuService.deleteBuku(id);
+      listBuku.removeWhere((element) => element.id==id);
+      notifyListeners();
+      return right(true);
+    }catch(e){
+      return left(e.toString());
+    }
+  }
+
   searchBook(String keyword) {
 
     searchResult = listBuku.where((element) =>

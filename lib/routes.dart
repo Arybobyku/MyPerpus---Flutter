@@ -17,6 +17,7 @@ import 'package:my_perpus/ui/user/keranjang/user_keranjang_page.dart';
 import 'package:my_perpus/ui/user/main_menu_page.dart';
 import 'package:my_perpus/ui/web_view.dart';
 
+import 'ui/admin/detailBuku/admin_detail_buku.dart';
 import 'ui/detail_buku.dart';
 import 'ui/user/search/user_search_page.dart';
 
@@ -33,6 +34,7 @@ class Routes {
   static const String detailRiwayat = "/detailRiwayat";
   static const String adminDetail = "/adminDetail";
   static const String adminSearch = "/adminSearch";
+  static const String adminDetailBuku = "/adminDetailBuku";
   static const String adminListBuku = "/adminListBuku";
   static const String adminInfo = "/adminInfo";
   static const String adminTambahBuku = "/adminTambahBuku";
@@ -56,6 +58,7 @@ class Routes {
     GetPage(name: adminSearch, page:()=>AdminSearchPage()),
     GetPage(name: adminListBuku, page:()=>AdminListBukuPage()),
     GetPage(name: adminInfo, page:()=>AdminInfoPage()),
+    GetPage(name: adminDetailBuku, page:()=>AdminDetailBuku()),
     GetPage(name: adminTambahBuku, page:()=>AdminTambahBukuPage()),
     GetPage(name: adminCheckUser, page:()=>AdminCheckUserPage()),
     GetPage(name: adminDetailAnggota, page:()=>AdminUserDetailPage()),

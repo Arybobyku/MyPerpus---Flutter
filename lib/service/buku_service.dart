@@ -61,6 +61,47 @@ class BukuService {
       }
   }
 
+  Future<void> deleteBuku(String id)async{
+    try{
+      var bukuById = await _bukuReference.doc(id);
+      bukuById.delete();
+    }catch(e){
+      rethrow;
+    }
+  }
+
+  Future<void> updateBuku(BukuModel bukuModel)async{
+    try{
+      var bukuById = await _bukuReference.doc(bukuModel.id);
+      await bukuById.update({
+        'gambar': bukuModel.gambar,
+        'judul': bukuModel.judul,
+        'anakJudul': bukuModel.anakJudul,
+        'pengarang': bukuModel.pengarang,
+        'pengarangTambahan': bukuModel.pengarangTambahan,
+        'penerbit': bukuModel.penerbit,
+        'tempatTerbit': bukuModel.tempatTerbit,
+        'tahunTerbit': bukuModel.tahunTerbit,
+        'jumlahHalaman': bukuModel.jumlahHalaman,
+        'keteranganIlustrasi': bukuModel.keteranganIlustrasi,
+        'dimensi': bukuModel.dimensi,
+        'edisi': bukuModel.edisi,
+        'subjek': bukuModel.subjek,
+        'noKlass': bukuModel.noKlass,
+        'noPanggil': bukuModel.noPanggil,
+        'ISBN': bukuModel.ISBN,
+        'bahasa': bukuModel.bahasa,
+        'bentukKaryaTulis': bukuModel.bentukKaryaTulis,
+        'kelompokSasaran': bukuModel.kelompokSasaran,
+        'lokasiKoleksiDaring': bukuModel.lokasiKoleksiDaring,
+        'stok': bukuModel.stok
+      });
+
+    }catch(e){
+      rethrow;
+    }
+  }
+
   Future<List<BukuModel>> getAllBuku()async{
     try{
       print("Get Buku From Firbase");

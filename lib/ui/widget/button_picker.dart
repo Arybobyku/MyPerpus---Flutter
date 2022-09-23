@@ -17,10 +17,14 @@ class ButtonPicker extends StatelessWidget {
               color: ColorPalette.generalPrimaryColor,
               size: 35,
             ),
-            Text(
-              this.title,
-              style: TextStyle(
-                  color: ColorPalette.generalPrimaryColor, fontSize: 20),
+            Expanded(
+              child: Text(
+                this.title,
+                maxLines: 2,
+                style: TextStyle(
+                    color: ColorPalette.generalPrimaryColor, fontSize: 20,
+                ),
+              ),
             ),
           ],
         ),

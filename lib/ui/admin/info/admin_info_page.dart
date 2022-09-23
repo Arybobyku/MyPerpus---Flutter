@@ -80,53 +80,11 @@ class _AdminInfoPageState extends State<AdminInfoPage> {
                       Get.toNamed(Routes.adminTambahBuku);
                     },
                   ),
-                  HorizontalIconLabel(
-                    icon: Icons.info,
-                    label: "Informasi",
-                    ontap: (){
-                      Get.toNamed(Routes.adminInfo);
-                    },
-                  ),
+
                   SizedBox(height: 10,),
                   Divider(height: 1,color: ColorPalette.generalGrey,),
-                  HorizontalIconLabel(
-                    icon: Icons.window,
-                    label: "Katalog",
-                    ontap: (){
-                    },
-                  ),
-                  HorizontalIconLabel(
-                    icon: Icons.wysiwyg,
-                    label: "Laporan",
-                    ontap: (){
-                    },
-                  ),
-                  HorizontalIconLabel(
-                    icon: Icons.all_inbox_outlined,
-                    label: "Survey",
-                    ontap: (){
-                    },
-                  ),
-                  HorizontalIconLabel(
-                    icon: Icons.add_business_rounded,
-                    label: "Layanan Koleksi Digital",
-                    ontap: (){
-                    },
-                  ),
-                  HorizontalIconLabel(
-                    icon: Icons.admin_panel_settings,
-                    label: "Administrasi",
-                    ontap: (){
-                    },
-                  ),
-                  HorizontalIconLabel(
-                    icon: Icons.account_tree_sharp,
-                    label: "Pengaturan",
-                    ontap: (){
-                    },
-                  ),
                   SizedBox(height: 10,),
-                  Divider(height: 1,color: ColorPalette.generalGrey,),
+
                   HorizontalIconLabel(
                     icon: Icons.logout,
                     label: "Keluar",

@@ -7,6 +7,7 @@ import 'package:my_perpus/provider/buku.dart';
 import 'package:my_perpus/provider/peminjaman.dart';
 import 'package:my_perpus/routes.dart';
 import 'package:my_perpus/ui/widget/book_container.dart';
+import 'package:my_perpus/ui/widget/button_rounded.dart';
 import 'package:my_perpus/ui/widget/search_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -142,6 +143,7 @@ class _UserHomePageState extends State<UserHomePage> {
                   ),
                 ),
                 SizedBox(height: 15),
+                ButtonRounded(text: "test"),
                 Padding(
                   padding: const EdgeInsets.only(left: 20),
                   child: Text(
@@ -160,7 +162,8 @@ class _UserHomePageState extends State<UserHomePage> {
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
                         childAspectRatio: 0.45,
-                        crossAxisSpacing: 20),
+                        crossAxisSpacing: 20,
+                    ),
                     itemCount: valueBuku.listBuku.length,
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
