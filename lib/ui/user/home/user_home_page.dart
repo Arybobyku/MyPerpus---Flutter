@@ -143,7 +143,6 @@ class _UserHomePageState extends State<UserHomePage> {
                   ),
                 ),
                 SizedBox(height: 15),
-                ButtonRounded(text: "test"),
                 Padding(
                   padding: const EdgeInsets.only(left: 20),
                   child: Text(
