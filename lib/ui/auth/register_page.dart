@@ -240,7 +240,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Icon(Icons.file_copy_outlined,size: 80,),
                 ):ButtonPicker(
                   title: "Upload File Persyaratan (Kota Medan dan Luar Kota Medan)",
-                  onTap: () => doImagePicker(),
+                  onTap: () => doPdfPicker(),
                 ),
                 photoProfile != null
                     ? Container(
@@ -286,6 +286,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   },
                 ),
                 SizedBox(height: 30),
+                
+
               ],
             ),
           ),
@@ -314,6 +316,21 @@ class _RegisterPageState extends State<RegisterPage> {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['jpg', 'png', 'jpeg'],
+    );
+
+    if (result != null) {
+      setState(() {
+        photoProfile = File(result.files.single.path!);
+      });
+    } else {
+      // User canceled the picker
+    }
+  }
+
+  doPdfPicker() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf','jpg', 'png', 'jpeg'],
     );
 
     if (result != null) {

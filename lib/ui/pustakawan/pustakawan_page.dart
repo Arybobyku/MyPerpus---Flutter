@@ -5,6 +5,7 @@ import 'package:my_perpus/helper/color_palette.dart';
 import 'package:my_perpus/provider/admin.dart';
 import 'package:my_perpus/provider/auth.dart';
 import 'package:my_perpus/routes.dart';
+import 'package:my_perpus/ui/widget/small_button.dart';
 import 'package:my_perpus/ui/widget/status_peminjaman.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -19,6 +20,7 @@ class PustakawanPage extends StatefulWidget {
 class _PustakawanPageState extends State<PustakawanPage> {
 
   bool getData = true;
+  int selectedIndex = 0;
 
   @override
   void initState() {
@@ -56,13 +58,40 @@ class _PustakawanPageState extends State<PustakawanPage> {
           body: SingleChildScrollView(
             child: Column(
               children: [
+                Row(
+                  children: [
+                    SizedBox(width: 20,),
+                    Expanded(
+                        child: SmallButton(
+                          text: "Booking",
+                          onPressed: () {
+                            setState(() {
+                              selectedIndex = 0;
+                            });
+                          },
+                          invert: selectedIndex == 0,
+                        )),
+                    SizedBox(width: 10,),
+                    Expanded(
+                        child: SmallButton(
+                          text: "Dikonfirmasi",
+                          onPressed: () {
+                            setState(() {
+                              selectedIndex = 1;
+                            });
+                          },
+                          invert: selectedIndex == 1,
+                        )),
+                    SizedBox(width: 20,),
+                  ],
+                ),
                 SizedBox(height: 20),
                 ListView.builder(
                   shrinkWrap: true,
                   itemCount: valueAdmin.listPeminjaman.length,
                   physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    return  valueAdmin.listPeminjaman[index].status==0? GestureDetector(
+                    return  valueAdmin.listPeminjaman[index].status==selectedIndex? GestureDetector(
                       onTap: (){
                         Provider.of<AdminProvider>(context,listen: false).onClickDetailPeminjaman(valueAdmin.listPeminjaman[index]);
                         Get.toNamed(Routes.adminDetail);

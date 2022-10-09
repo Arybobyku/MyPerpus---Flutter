@@ -14,18 +14,18 @@ class SmallButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.symmetric(vertical: 15.0),
-      padding: EdgeInsets.all(5),
-      alignment: Alignment.center,
-      decoration: kRoundedContainer.copyWith(
-          color: invert
-              ? ColorPalette.generalWhite
-              : ColorPalette.generalPrimaryColor,
-          borderRadius: BorderRadius.circular(15)),
-      child: GestureDetector(
-        onTap: onPressed,
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        width: double.infinity,
+        margin: EdgeInsets.symmetric(vertical: 15.0),
+        padding: EdgeInsets.all(5),
+        alignment: Alignment.center,
+        decoration: kRoundedContainer.copyWith(
+            color: invert
+                ? ColorPalette.generalWhite
+                : ColorPalette.generalPrimaryColor,
+            borderRadius: BorderRadius.circular(15)),
         child: Text(
           text,
           overflow: TextOverflow.ellipsis,
