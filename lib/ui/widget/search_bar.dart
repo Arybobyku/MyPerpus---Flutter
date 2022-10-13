@@ -5,9 +5,10 @@ import 'package:my_perpus/ui/widget/input_field_rounded.dart';
 
 class SearchBar extends StatelessWidget {
   const SearchBar(
-      {Key? key, this.onTapSearch, this.enable = true, this.onChanged,this.onEditingCompleted,this.title = "Cari Buku",this.onSubmit})
+      {Key? key, this.onTapSearch, this.enable = true, this.onChanged,this.onEditingCompleted,this.title = "Cari Buku",this.onSubmit,this.onTapReset})
       : super(key: key);
   final Function()? onTapSearch;
+  final Function()? onTapReset;
   final Function()? onEditingCompleted;
   final Function(String)? onChanged;
   final Function(String)? onSubmit;
@@ -67,7 +68,10 @@ class SearchBar extends StatelessWidget {
                 ),
               ),
             ),
-
+            GestureDetector(
+              onTap: onTapReset,
+              child: Icon(Icons.close),
+            )
           ],
         ),
       ),

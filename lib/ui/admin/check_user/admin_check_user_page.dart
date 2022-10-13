@@ -54,6 +54,7 @@ class _AdminCheckUserPageState extends State<AdminCheckUserPage> {
                     Provider.of<AdminProvider>(context, listen: false)
                         .searchAnggota(val);
                   },
+                  onTapReset: ()=>Provider.of<AdminProvider>(context,listen: false).resetSearchAnggota(),
                 ),
                 SizedBox(height: 10),
                 Padding(

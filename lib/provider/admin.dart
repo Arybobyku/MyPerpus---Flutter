@@ -110,6 +110,11 @@ class AdminProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  resetSearchAnggota(){
+    listAnggotaSearch = listAnggota;
+    notifyListeners();
+  }
+
   selectDetailAnggota(UserModel userModel){
     selectedAnggota = userModel;
     notifyListeners();
