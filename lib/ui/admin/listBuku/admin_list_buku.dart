@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:get/get.dart';
 import 'package:my_perpus/helper/color_palette.dart';
+import 'package:my_perpus/provider/admin.dart';
 import 'package:my_perpus/provider/buku.dart';
 import 'package:my_perpus/routes.dart';
 import 'package:my_perpus/ui/widget/horizontal_book.dart';
@@ -22,13 +24,34 @@ class AdminListBukuPage extends StatelessWidget {
             style: TextStyle(color: ColorPalette.generalPrimaryColor),
           ),
         ),
-        body: Consumer<BukuProvider>(builder: (context, valueBuku, _) {
+        body: Consumer2<BukuProvider, AdminProvider>(
+            builder: (context, valueBuku, valueAdmin, _) {
           return Container(
             margin: EdgeInsets.only(left: 20, right: 20),
             child: ListView.builder(
               itemCount: valueBuku.listBuku.length,
               itemBuilder: (context, index) {
                 var buku = valueBuku.listBuku[index];
+                bool isEmpty = true;
+
+                for(int i = 0;i<valueAdmin.listPeminjaman.length;i++){
+
+                  if(valueAdmin.listPeminjaman[i].status==2)
+                  for(int j = 0;j<valueAdmin.listPeminjaman[i].bukuModel.length;j++){
+
+                    print("[HEHEHEE] ${buku.judul}");
+                    if(valueAdmin.listPeminjaman[i].bukuModel[j].id==buku.id){
+                      print("${buku.judul}");
+                      isEmpty = false;
+                      break;
+                    }
+                  }
+                  if(isEmpty==false){
+                    break;
+                  }
+                }
+
+
                 return InkWell(
                   onTap: () {
                     valueBuku.bukuDetail = buku;
@@ -42,18 +65,19 @@ class AdminListBukuPage extends StatelessWidget {
                           Expanded(
                             child: HorizontalBook(bukuModel: buku),
                           ),
-                          InkWell(
-                            onTap: (){
-                              doDeleteBuku(buku.id!,context);
-                            },
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 0),
-                              child: Icon(
-                                Icons.delete,
-                                color: Colors.red,
+                          if (isEmpty)
+                            InkWell(
+                              onTap: () {
+                                doDeleteBuku(buku.id!, context);
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 0),
+                                child: Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
                               ),
                             ),
-                          ),
                         ],
                       ),
                       SizedBox(height: 10),
@@ -68,13 +92,13 @@ class AdminListBukuPage extends StatelessWidget {
     );
   }
 
-  doDeleteBuku(String id,BuildContext context)async{
+  doDeleteBuku(String id, BuildContext context) async {
     EasyLoading.show(status: "Loading");
     var result = await Provider.of<BukuProvider>(context, listen: false)
         .doDeleteBuku(id);
 
     result.fold(
-          (l) {
+      (l) {
         EasyLoading.dismiss();
         Alert(
           context: context,
@@ -87,7 +111,7 @@ class AdminListBukuPage extends StatelessWidget {
                 "Close",
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
-              onPressed: (){
+              onPressed: () {
                 Navigator.pop(context);
               },
               color: ColorPalette.generalPrimaryColor,
@@ -96,7 +120,7 @@ class AdminListBukuPage extends StatelessWidget {
           ],
         ).show();
       },
-          (r) {
+      (r) {
         EasyLoading.dismiss();
         Alert(
           context: context,
@@ -118,5 +142,4 @@ class AdminListBukuPage extends StatelessWidget {
       },
     );
   }
-
 }

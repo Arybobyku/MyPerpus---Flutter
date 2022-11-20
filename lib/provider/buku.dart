@@ -22,6 +22,8 @@ class BukuProvider extends ChangeNotifier {
         hasil.gambar = "https://firebasestorage.googleapis.com/v0/b/myperpus-a5b72.appspot.com/o/no-cover.png?alt=media&token=0095d2e4-8490-4c48-bb79-66fd72ea226c";
       }
 
+      listBuku.add(hasil);
+      notifyListeners();
       await _bukuService.setBuku(hasil);
       return right(true);
     } catch (e) {

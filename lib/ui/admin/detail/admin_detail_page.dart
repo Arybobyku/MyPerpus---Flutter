@@ -95,6 +95,8 @@ class _AdminDetailPageState extends State<AdminDetailPage> {
                             value: parseDate(valueAdmin
                                 .detailPeminjaman.tanggalPengembalian
                                 .toString())),
+
+                        SizedBox(height: 15),
                       ],
                     ),
                   ),

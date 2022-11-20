@@ -6,6 +6,7 @@ import 'package:my_perpus/helper/color_palette.dart';
 import 'package:my_perpus/helper/constants.dart';
 import 'package:my_perpus/model/user_model.dart';
 import 'package:my_perpus/provider/admin.dart';
+import 'package:my_perpus/routes.dart';
 import 'package:my_perpus/ui/widget/button_rounded.dart';
 import 'package:my_perpus/ui/widget/vertical_title_value.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,13 @@ class _AdminUserDetailState extends State<AdminUserDetailPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Consumer<AdminProvider>(builder: (context, value, _) {
+        bool canCancelUser = true;
+        for(int i = 0;i<value.listPeminjaman.length;i++){
+          if(value.listPeminjaman[i].idUser==value.selectedAnggota.id && value.listPeminjaman[i].status==2){
+            canCancelUser = false;
+            break;
+          }
+        }
         return Scaffold(
           body: Column(
             children: [
@@ -164,7 +172,15 @@ class _AdminUserDetailState extends State<AdminUserDetailPage> {
                             VerticalTitleValue(
                                 title: 'RW',
                                 value: value.selectedAnggota.rw ?? "-"),
-                            SizedBox(height: 100),
+                            SizedBox(height: 15),
+                            GestureDetector(
+                              onTap:(){
+                                Get.toNamed(Routes.webView,arguments: "https://drive.google.com/file/d/17HaPadWd6FOqZ5nUGiN8vx41eGnbFr_-/view?usp=sharing");
+                              },child: VerticalTitleValue(
+                                title: 'File Persyaratan',
+                                value: "Klik File persyaratan.pdf"),
+                            ),
+
                           ],
                         ),
                       ),
@@ -180,7 +196,7 @@ class _AdminUserDetailState extends State<AdminUserDetailPage> {
                     onPressed: ()=>doKonfirmasiAnggota(value.selectedAnggota),
                   ),
                 ),
-              if (value.selectedAnggota.isValid)
+              if (value.selectedAnggota.isValid && canCancelUser)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: ButtonRounded(

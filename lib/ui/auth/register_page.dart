@@ -28,6 +28,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   File? photoProfile = null;
+  File? pdfPicker = null;
   File? filePicker = null;
   bool secureText = true;
   String? jenisIdentitas = "KTP";
@@ -335,7 +336,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
     if (result != null) {
       setState(() {
-        photoProfile = File(result.files.single.path!);
+        pdfPicker = File(result.files.single.path!);
       });
     } else {
       // User canceled the picker
